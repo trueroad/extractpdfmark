@@ -18,11 +18,13 @@
 #include "config.h"
 
 #include <iostream>
+#include <string>
 #include <PDFDoc.h>
 #include <Link.h>
 
 #include "destname.hh"
 #include "destname-private.hh"
+#include "encodename.hh"
 
 void put_destname (PDFDoc *doc, GooString *name)
 {
@@ -44,7 +46,7 @@ void put_destname (PDFDoc *doc, GooString *name)
         {
         case destXYZ:
           std::cout
-            << "[ /Dest (" << name->getCString ()
+            << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/XYZ " << link_dest->getLeft ()
             << " " << link_dest->getTop ()
