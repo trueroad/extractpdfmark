@@ -25,18 +25,27 @@
 
 std::string encode_name (GooString *name)
 {
-  if(name->hasUnicodeMarker ())
+  bool utf16 = name->hasUnicodeMarker ();
+  std::stringstream encoded;
+  int i, len = name->getLength ();
+
+  for (i=0; i<len; ++i)
     {
-      std::stringstream encoded;
-      int i, len = name->getLength ();
-      for (i=0; i<len; ++i)
+      char c = name->getChar (i);
+      if (utf16 || static_cast<unsigned char>(c) < 0x20 || c == ' ' ||
+          c == '(' || c == ')' || c == '<' || c == '>' ||
+          c == '[' || c == ']' || c == '{' || c == '}' ||
+          c == '/' || c == '\\' || c == '%' || c == '#')
         {
           encoded
             << '\\'
             << std::oct << std::setw (3) << std::setfill ('0')
-            << static_cast<int>(static_cast<unsigned char>(name->getChar (i)));
+            << static_cast<int>(static_cast<unsigned char>(c));
         }
-      return encoded.str ();
+      else
+        {
+          encoded << c;
+        }
     }
-  return name->getCString ();
+  return encoded.str ();
 }
