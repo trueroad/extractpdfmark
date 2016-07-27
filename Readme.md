@@ -9,7 +9,8 @@ You can get the small PDF that has preserved them by using this tool.
 
 ## Required
 
-poppler
+poppler 0.13.3+
+Autotools (autoheader, aclocal, automake, autoconf)
 
 ## Build
 
