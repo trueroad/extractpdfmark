@@ -53,6 +53,12 @@ void put_destname (PDFDoc *doc, GooString *name)
             << " " << link_dest->getZoom ()
             << "] /DEST pdfmark" << std::endl;
           break;
+        case destFit:
+          std::cout
+            << "[ /Dest (" << encode_name (name)
+            << ") /Page " << pagenum
+            << " /View [/Fit] /DEST pdfmark" << std::endl;
+          break;
         default:
           std::cout << "%  link_dest kind is unknown." << std::endl;
           break;
