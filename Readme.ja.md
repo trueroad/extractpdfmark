@@ -12,6 +12,7 @@ PDFmark として保存することができます。
 ## 必要なもの
 
 poppler 0.13.3 以降
+
 Autotools (autoheader, aclocal, automake, autoconf)
 
 ## ビルド方法
