@@ -18,20 +18,34 @@
 #include "config.h"
 
 #include <iostream>
+#include <PDFDoc.h>
+#include <PDFDocFactory.h>
 
 #include "output-pdfmark.hh"
+#include "pagemode.hh"
+#include "destname.hh"
 
-int main (int argc, char *argv[])
+int output_pdfmark (char *pdf_filename)
 {
-  std::cout << "% " << PACKAGE_NAME << " version "
-            << PACKAGE_VERSION << std::endl
-            << "% " << PACKAGE_URL << std::endl << std::endl;
+  GooString *fileName = new GooString (pdf_filename);
+  PDFDoc *doc = PDFDocFactory().createPDFDoc(*fileName, NULL, NULL);
+  delete fileName;
 
-  if (argc != 2)
+  if (!doc)
     {
-      std::cerr << "Usage: " << argv[0] << " [PDF filename]" << std::endl;
+      std::cerr << "open failed." << std::endl;
+      return 1;
+    }
+  if (!doc->isOk ())
+    {
+      std::cerr << "file is not OK." << std::endl;
+      delete doc;
       return 1;
     }
 
-  return output_pdfmark (argv[1]);
+  put_pagemode (doc);
+  put_destnametree (doc);
+
+  delete doc;
+  return 0;
 }
