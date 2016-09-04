@@ -21,7 +21,7 @@
 #include <PDFDoc.h>
 #include <PDFDocFactory.h>
 
-#include "output-pdfmark.hh"
+#include "../output-pdfmark.hh"
 #include "pagemode.hh"
 #include "destname.hh"
 
