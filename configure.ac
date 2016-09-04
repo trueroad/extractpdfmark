@@ -5,11 +5,12 @@ AC_PREREQ([2.69])
 AC_INIT([Extract PDFmark], [0.01], , extractpdfname,
 [https://github.com/trueroad/extractpdfmark/])
 AM_INIT_AUTOMAKE([foreign])
-AC_CONFIG_SRCDIR([main.cc])
+AC_CONFIG_SRCDIR([src/main.cc])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CXX
+AC_PROG_RANLIB
 
 # Checks for libraries.
 PKG_PROG_PKG_CONFIG
@@ -22,5 +23,5 @@ AC_C_INLINE
 
 # Checks for library functions.
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES(Makefile src/Makefile src/poppler-core/Makefile)
 AC_OUTPUT
