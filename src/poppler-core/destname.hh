@@ -15,4 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef INCLUDE_GUARD_DESTNAME_HH
+#define INCLUDE_GUARD_DESTNAME_HH
+
 void put_destnametree (PDFDoc *doc);
+
+#endif // INCLUDE_GUARD_DESTNAME_HH

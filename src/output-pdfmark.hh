@@ -15,4 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef INCLUDE_GUARD_OUTPUT_PDFMARK_HH
+#define INCLUDE_GUARD_OUTPUT_PDFMARK_HH
+
 int output_pdfmark (char *pdf_filename);
+
+#endif // INCLUDE_GUARD_OUTPUT_PDFMARK_HH

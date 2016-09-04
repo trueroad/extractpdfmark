@@ -15,4 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef INCLUDE_GUARD_ENCODENAME_HH
+#define INCLUDE_GUARD_ENCODENAME_HH
+
 std::string encode_name (GooString *name);
+
+#endif // INCLUDE_GUARD_ENCODENAME_HH

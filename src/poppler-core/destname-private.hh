@@ -15,6 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef INCLUDE_GUARD_DESTNAME_PRIVATE_HH
+#define INCLUDE_GUARD_DESTNAME_PRIVATE_HH
+
 #include <Catalog.h>
 
 //
@@ -62,3 +65,5 @@ inline NameTree *get_destnametree (Catalog *catalog)
 //
 // *** FIXME, UGLY ***
 //
+
+#endif // INCLUDE_GUARD_DESTNAME_PRIVATE_HH

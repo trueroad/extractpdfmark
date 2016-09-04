@@ -15,4 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef INCLUDE_GUARD_PAGEMODE_HH
+#define INCLUDE_GUARD_PAGEMODE_HH
+
 void put_pagemode (PDFDoc *doc);
+
+#endif // INCLUDE_GUARD_PAGEMODE_HH
