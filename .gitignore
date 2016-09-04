@@ -10,7 +10,7 @@
 /configure
 /depcomp
 /install-sh
-/Makefile.in
+Makefile.in
 /missing
 .deps/
 Makefile
