@@ -1,3 +1,3 @@
 #!/bin/sh
 
-autoreconf -v -i
+autoreconf -v -i -Im4

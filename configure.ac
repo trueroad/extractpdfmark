@@ -20,6 +20,7 @@ PKG_CHECK_MODULES(POPPLER,poppler)
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 
 # Checks for library functions.
 
