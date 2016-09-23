@@ -25,9 +25,10 @@
 #include "pagemode.hh"
 #include "destname.hh"
 
-int output_pdfmark (char *pdf_filename, std::ostream &output)
+int output_pdfmark (const std::string &pdf_filename, std::ostream &output)
 {
-  GooString *fileName = new GooString (pdf_filename);
+  GooString *fileName = new GooString (pdf_filename.c_str (),
+                                       pdf_filename.length ());
   PDFDoc *doc = PDFDocFactory().createPDFDoc(*fileName, NULL, NULL);
   delete fileName;
 

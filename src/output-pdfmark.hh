@@ -19,7 +19,8 @@
 #define INCLUDE_GUARD_OUTPUT_PDFMARK_HH
 
 #include <ostream>
+#include <string>
 
-int output_pdfmark (char *pdf_filename, std::ostream &output);
+int output_pdfmark (const std::string &pdf_filename, std::ostream &output);
 
 #endif // INCLUDE_GUARD_OUTPUT_PDFMARK_HH
