@@ -18,6 +18,6 @@
 #ifndef INCLUDE_GUARD_DESTNAME_HH
 #define INCLUDE_GUARD_DESTNAME_HH
 
-void put_destnametree (PDFDoc *doc);
+void put_destnametree (PDFDoc *doc, std::ostream &output);
 
 #endif // INCLUDE_GUARD_DESTNAME_HH

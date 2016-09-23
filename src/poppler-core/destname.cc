@@ -26,7 +26,7 @@
 #include "destname-private.hh"
 #include "encodename.hh"
 
-void put_destname (PDFDoc *doc, GooString *name)
+void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
 {
   LinkDest *link_dest = doc->findDest (name);
   if (link_dest)
@@ -45,7 +45,7 @@ void put_destname (PDFDoc *doc, GooString *name)
       switch (link_dest->getKind ())
         {
         case destXYZ:
-          std::cout
+          output
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/XYZ " << link_dest->getLeft ()
@@ -54,13 +54,13 @@ void put_destname (PDFDoc *doc, GooString *name)
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFit:
-          std::cout
+          output
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/Fit] /DEST pdfmark" << std::endl;
           break;
         default:
-          std::cout << "%  link_dest kind is unknown." << std::endl;
+          output << "%  link_dest kind is unknown." << std::endl;
           break;
         }
 
@@ -68,11 +68,11 @@ void put_destname (PDFDoc *doc, GooString *name)
     }
   else
     {
-      std::cout << "%  link_dest is null." << std::endl;
+      output << "%  link_dest is null." << std::endl;
     }
 }
 
-void put_destnametree (PDFDoc *doc)
+void put_destnametree (PDFDoc *doc, std::ostream &output)
 {
   Catalog *catalog = doc->getCatalog ();
   if (catalog && catalog->isOk ())
@@ -83,14 +83,14 @@ void put_destnametree (PDFDoc *doc)
           int len = destnametree->numEntries ();
           for (int i=0; i<len; ++i)
             {
-              put_destname (doc, destnametree->getName (i));
+              put_destname (doc, destnametree->getName (i), output);
             }
         }
       else
         {
-          std::cout << "% NameTree is null" << std::endl;
+          output << "% NameTree is null" << std::endl;
         }
     }
   else
-    std::cout << "% Catalog is not OK" << std::endl;
+    output << "% Catalog is not OK" << std::endl;
 }

@@ -18,6 +18,6 @@
 #ifndef INCLUDE_GUARD_PAGEMODE_HH
 #define INCLUDE_GUARD_PAGEMODE_HH
 
-void put_pagemode (PDFDoc *doc);
+void put_pagemode (PDFDoc *doc, std::ostream &output);
 
 #endif // INCLUDE_GUARD_PAGEMODE_HH

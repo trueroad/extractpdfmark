@@ -22,7 +22,7 @@
 
 #include "pagemode.hh"
 
-void put_pagemode (PDFDoc *doc)
+void put_pagemode (PDFDoc *doc, std::ostream &output)
 {
   Catalog *catalog = doc->getCatalog ();
   if (catalog && catalog->isOk ())
@@ -30,26 +30,26 @@ void put_pagemode (PDFDoc *doc)
       switch (catalog->getPageMode ())
         {
         case Catalog::pageModeNone:
-          std::cout
+          output
             << "[ /PageMode /UseNone /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeOutlines:
-          std::cout
+          output
             << "[ /PageMode /UseOutlines /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeThumbs:
-          std::cout
+          output
             << "[ /PageMode /UseThumbs /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeFullScreen:
-          std::cout
+          output
             << "[ /PageMode /FullScreen /DOCVIEW pdfmark" << std::endl;
           break;
         default:
-          std::cout << "% PageMode unknown" << std::endl;
+          output << "% PageMode unknown" << std::endl;
           break;
         }
     }
   else
-    std::cout << "% PageMode unset" << std::endl;
+    output << "% PageMode unset" << std::endl;
 }

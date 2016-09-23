@@ -18,6 +18,8 @@
 #ifndef INCLUDE_GUARD_OUTPUT_PDFMARK_HH
 #define INCLUDE_GUARD_OUTPUT_PDFMARK_HH
 
-int output_pdfmark (char *pdf_filename);
+#include <ostream>
+
+int output_pdfmark (char *pdf_filename, std::ostream &output);
 
 #endif // INCLUDE_GUARD_OUTPUT_PDFMARK_HH

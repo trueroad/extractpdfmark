@@ -33,5 +33,5 @@ int main (int argc, char *argv[])
       return 1;
     }
 
-  return output_pdfmark (argv[1]);
+  return output_pdfmark (argv[1], std::cout);
 }
