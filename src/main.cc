@@ -19,19 +19,28 @@
 
 #include <iostream>
 
+#include "cmdlineparse.hh"
 #include "output-pdfmark.hh"
 
 int main (int argc, char *argv[])
 {
-  std::cout << "% " << PACKAGE_NAME << " version "
-            << PACKAGE_VERSION << std::endl
-            << "% " << PACKAGE_URL << std::endl << std::endl;
+  cmdlineparse::parser cmd;
 
-  if (argc != 2)
+  cmd.add_default ();
+  cmd.set_usage_unamed_opts ("PDF filename");
+
+  if (!cmd.parse (argc, argv))
+    return 0;
+
+  if (cmd.get_unamed_args ().empty ())
     {
-      std::cerr << "Usage: " << argv[0] << " [PDF filename]" << std::endl;
+      std::cerr << cmd.get_version_string () << std::endl
+                << cmd.build_usage () << std::endl;
       return 1;
     }
 
-  return output_pdfmark (argv[1], std::cout);
+  std::cout << "% " << PACKAGE_STRING << std::endl
+            << "% " << PACKAGE_URL << std::endl << std::endl;
+
+  return output_pdfmark (cmd.get_unamed_args ().at (0), std::cout);
 }
