@@ -24,11 +24,12 @@
 
 #include "destname.hh"
 #include "destname-private.hh"
-#include "encodename.hh"
+#include "../encodename.hh"
 
 inline std::string encode_name (GooString *name)
 {
-  std::string str {name->getCString (), name->getLength ()};
+  std::string str {name->getCString (),
+      static_cast<std::string::size_type>(name->getLength ())};
   return encode_name (str);
 }
 
