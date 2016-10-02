@@ -26,6 +26,12 @@
 #include "destname-private.hh"
 #include "encodename.hh"
 
+inline std::string encode_name (GooString *name)
+{
+  std::string str {name->getCString (), name->getLength ()};
+  return encode_name (str);
+}
+
 void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
 {
   LinkDest *link_dest = doc->findDest (name);

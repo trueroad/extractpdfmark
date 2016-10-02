@@ -18,6 +18,6 @@
 #ifndef INCLUDE_GUARD_ENCODENAME_HH
 #define INCLUDE_GUARD_ENCODENAME_HH
 
-std::string encode_name (GooString *name);
+std::string encode_name (const std::string &name);
 
 #endif // INCLUDE_GUARD_ENCODENAME_HH

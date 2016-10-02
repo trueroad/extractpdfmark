@@ -19,19 +19,16 @@
 
 #include <sstream>
 #include <iomanip>
-#include <goo/GooString.h>
 
 #include "encodename.hh"
 
-std::string encode_name (GooString *name)
+std::string encode_name (const std::string &name)
 {
-  bool utf16 = name->hasUnicodeMarker ();
+  bool utf16 = (name.length () >= 2) && name[0] == 0xfe && name[1] == 0xff;
   std::stringstream encoded;
-  int i, len = name->getLength ();
 
-  for (i=0; i<len; ++i)
+  for (auto c: name)
     {
-      char c = name->getChar (i);
       if (utf16 || static_cast<unsigned char>(c) < 0x20 || c == ' ' ||
           c == '(' || c == ')' || c == '<' || c == '>' ||
           c == '[' || c == ']' || c == '{' || c == '}' ||
