@@ -22,15 +22,16 @@
 
 #include "encodename.hh"
 #include "utf16.hh"
+#include "utf8.hh"
 
 std::string encode_name (const std::string &name)
 {
-  bool utf16 = is_utf16 (name);
+  bool bflag = is_utf16 (name) || !is_utf8 (name);
   std::stringstream encoded;
 
   for (auto c: name)
     {
-      if (utf16 || static_cast<unsigned char>(c) < 0x20 || c == ' ' ||
+      if (bflag || static_cast<unsigned char>(c) < 0x20 || c == ' ' ||
           c == '(' || c == ')' || c == '<' || c == '>' ||
           c == '[' || c == ']' || c == '{' || c == '}' ||
           c == '/' || c == '\\' || c == '%' || c == '#')
