@@ -17,33 +17,11 @@
 
 #include "config.h"
 
-#include <sstream>
-#include <iomanip>
+#include <string>
 
-#include "encodename.hh"
 #include "utf16.hh"
 
-std::string encode_name (const std::string &name)
+bool is_utf16 (const std::string &str)
 {
-  bool utf16 = is_utf16 (name);
-  std::stringstream encoded;
-
-  for (auto c: name)
-    {
-      if (utf16 || static_cast<unsigned char>(c) < 0x20 || c == ' ' ||
-          c == '(' || c == ')' || c == '<' || c == '>' ||
-          c == '[' || c == ']' || c == '{' || c == '}' ||
-          c == '/' || c == '\\' || c == '%' || c == '#')
-        {
-          encoded
-            << '\\'
-            << std::oct << std::setw (3) << std::setfill ('0')
-            << static_cast<int>(static_cast<unsigned char>(c));
-        }
-      else
-        {
-          encoded << c;
-        }
-    }
-  return encoded.str ();
+  return (str.length () >= 2) && str[0] == 0xfe && str[1] == 0xff;
 }

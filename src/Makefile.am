@@ -2,7 +2,8 @@ SUBDIRS = poppler-core
 
 bin_PROGRAMS = extractpdfmark
 extractpdfmark_SOURCES = main.cc output-pdfmark.hh \
-	encodename.cc encodename.hh
+	encodename.cc encodename.hh \
+	utf16.cc utf16.hh
 
 extractpdfmark_LDADD = -lextractpdfmark-poppler-core $(POPPLER_LIBS)
 extractpdfmark_LDFLAGS = -L./poppler-core
