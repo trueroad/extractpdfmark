@@ -24,7 +24,7 @@ AC_PROG_RANLIB
 
 # Checks for libraries.
 PKG_PROG_PKG_CONFIG
-PKG_CHECK_MODULES(POPPLER,poppler)
+PKG_CHECK_MODULES(POPPLER,poppler >= 0.13.3)
 
 # Checks for header files.
 
