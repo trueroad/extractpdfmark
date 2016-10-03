@@ -18,6 +18,7 @@
 #include "config.h"
 
 #include <iostream>
+#include <fstream>
 
 #include "cmdlineparse.hh"
 #include "output-pdfmark.hh"
@@ -25,9 +26,15 @@
 int main (int argc, char *argv[])
 {
   cmdlineparse::parser cmd;
+  std::string output_filename;
 
   cmd.add_default ();
-  cmd.set_usage_unamed_opts ("PDF filename");
+  cmd.add_string ('o', "output", &output_filename, "",
+                  "    Output filename\n"
+                  "    (Default: standard output)",
+                  "OUTPUT.ps");
+
+  cmd.set_usage_unamed_opts ("INPUT.pdf");
 
   if (!cmd.parse (argc, argv))
     return 0;
@@ -39,8 +46,20 @@ int main (int argc, char *argv[])
       return 1;
     }
 
-  std::cout << "% " << PACKAGE_STRING << std::endl
-            << "% " << PACKAGE_URL << std::endl << std::endl;
+  std::ostream *pout;
+  std::ofstream ofs;
+  if (output_filename.empty () || output_filename == "-")
+    {
+      pout = &std::cout;
+    }
+  else
+    {
+      ofs.open (output_filename);
+      pout = &ofs;
+    }
 
-  return output_pdfmark (cmd.get_unamed_args ().at (0), std::cout);
+  *pout << "% " << PACKAGE_STRING << std::endl
+        << "% " << PACKAGE_URL << std::endl << std::endl;
+
+  return output_pdfmark (cmd.get_unamed_args ().at (0), *pout);
 }
