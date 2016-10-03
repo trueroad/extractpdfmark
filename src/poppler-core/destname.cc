@@ -97,6 +97,17 @@ void put_destnametree (PDFDoc *doc, std::ostream &output)
         {
           output << "% NameTree is null" << std::endl;
         }
+
+      Object *obj = catalog->getDests ();
+      if (obj && obj->isDict ())
+        {
+          int len = obj->dictGetLength ();
+          for (int i=0; i<len; ++i)
+            {
+              GooString gs {obj->dictGetKey (i)};
+              put_destname (doc, &gs, output);
+            }
+        }
     }
   else
     output << "% Catalog is not OK" << std::endl;
