@@ -1,6 +1,8 @@
 TESTS = test-desttype-round.sh
 
-TESTS_ENVIRONMENT = top_builddir=$(top_builddir) GS=$(GS)
+TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
+	srcdir=$(srcdir) \
+	GS=$(GS)
 
 check_PROGRAMS = dummy
 dummy_SOURCES = dummy.cc

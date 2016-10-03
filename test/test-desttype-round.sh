@@ -1,7 +1,19 @@
 #!/bin/sh
 
-${top_builddir}/src/extractpdfmark -o desttype.ps desttype.pdf
-${GS} -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=desttype-2.pdf desttype.pdf desttype.ps
-${top_builddir}/src/extractpdfmark -o desttype-2.ps desttype-2.pdf
+BASENAME="desttype"
 
-diff -u desttype.ps desttype-2.ps
+PDFFILENAME="${BASENAME}.pdf"
+PSFILENAME="${BASENAME}.ps"
+PDFFILENAME2="${BASENAME}-2.pdf"
+PSFILENAME2="${BASENAME}-2.ps"
+
+if [ ! -e ${PDFFILENAME} ]; then
+    PDFFILENAME="${srcdir}/${BASENAME}.pdf"
+fi
+
+${top_builddir}/src/extractpdfmark -o ${PSFILENAME} ${PDFFILENAME}
+${GS} -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=${PDFFILENAME2} \
+      ${PDFFILENAME} ${PSFILENAME}
+${top_builddir}/src/extractpdfmark -o ${PSFILENAME2} ${PDFFILENAME2}
+
+diff -u ${PSFILENAME} ${PSFILENAME2}
