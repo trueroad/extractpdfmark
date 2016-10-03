@@ -1,7 +1,7 @@
 SUBDIRS = poppler-core
 
 bin_PROGRAMS = extractpdfmark
-extractpdfmark_SOURCES = main.cc output-pdfmark.hh \
+extractpdfmark_SOURCES = main.cc output-pdfmark.hh cmdlineparse.hh \
 	encodename.cc encodename.hh \
 	utf16.cc utf16.hh \
 	utf8.cc utf8.hh
