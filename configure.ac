@@ -36,5 +36,7 @@ AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 
 # Checks for library functions.
 
-AC_CONFIG_FILES(Makefile src/Makefile src/poppler-core/Makefile)
+AC_CONFIG_FILES(Makefile
+	src/Makefile src/poppler-core/Makefile
+	test/Makefile)
 AC_OUTPUT
