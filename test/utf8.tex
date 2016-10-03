@@ -1,0 +1,31 @@
+% Check for UTF-8 destination names
+
+%\pdfobjcompresslevel=0
+\pdfcatalog{/PageMode /UseOutlines}
+
+\catcode0=12
+
+% UTF-16 for title
+\def\furonetitle{^^fe^^ff^^00f^^00^^fc^^00r^^00 ^^00o^^00n^^00e}% f\"ur one
+\def\furtwotitle{^^fe^^ff^^00f^^00^^fc^^00r^^00 ^^00t^^00w^^00o}% f\"ur two
+
+% UTF-8 for destination name
+\def\furonename{f^^c3^^bcr one}% f\"ur one
+\def\furtwoname{f^^c3^^bcr two}% f\"ur two
+
+% Destination name could be binary (also UTF-8).
+% title shuld be PDFDocEncoding or UTF-16.
+\pdfoutline goto name{\furonename} {\furonetitle}
+\pdfoutline goto name{\furtwoname} {\furtwotitle}
+
+\pdfdest name{\furonename} xyz
+page 1
+
+\vfill
+\eject
+
+\pdfdest name{\furtwoname} xyz
+page 2
+
+\vfill
+\end

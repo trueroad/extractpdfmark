@@ -1,0 +1,31 @@
+% Check for binary (broken UTF-16) destination names
+
+%\pdfobjcompresslevel=0
+\pdfcatalog{/PageMode /UseOutlines}
+
+\catcode0=12
+
+% US-ASCII for title
+\def\furonetitle{fur one}
+\def\furtwotitle{fur two}
+
+% binary (broken UTF-16) for destination name
+\def\furonename{^^ff^^fe^^00f^^00^^fc^^00r^^00 ^^00o^^00n^^00e}
+\def\furtwoname{^^ff^^fe^^00f^^00^^fc^^00r^^00 ^^00t^^00w^^00o}
+
+% Destination name could be binary.
+% title shuld be PDFDocEncoding (also US-ASCII) or UTF-16.
+\pdfoutline goto name{\furonename} {\furonetitle}
+\pdfoutline goto name{\furtwoname} {\furtwotitle}
+
+\pdfdest name{\furonename} xyz
+page 1
+
+\vfill
+\eject
+
+\pdfdest name{\furtwoname} xyz
+page 2
+
+\vfill
+\end

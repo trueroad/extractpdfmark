@@ -1,0 +1,24 @@
+% Check for PDFDocEncoding destination names
+
+%\pdfobjcompresslevel=0
+\pdfcatalog{/PageMode /UseOutlines}
+
+% PDFDocEncoding (nearly Latin-1)
+\def\furone{f^^fcr one}% f\"ur one
+\def\furtwo{f^^fcr two}% f\"ur two
+
+% PDFDocEncoding can be used for both destination name and title.
+\pdfoutline goto name{\furone} {\furone}
+\pdfoutline goto name{\furtwo} {\furtwo}
+
+\pdfdest name{\furone} xyz
+page 1
+
+\vfill
+\eject
+
+\pdfdest name{\furtwo} xyz
+page 2
+
+\vfill
+\end
