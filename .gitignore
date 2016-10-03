@@ -21,3 +21,4 @@ stamp-h1
 *.o
 *.exe
 extractpdfmark
+/test-driver
