@@ -66,6 +66,50 @@ void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
             << ") /Page " << pagenum
             << " /View [/Fit] /DEST pdfmark" << std::endl;
           break;
+        case destFitH:
+          output
+            << "[ /Dest (" << encode_name (name)
+            << ") /Page " << pagenum
+            << " /View [/FitH " << link_dest->getTop ()
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case destFitV:
+          output
+            << "[ /Dest (" << encode_name (name)
+            << ") /Page " << pagenum
+            << " /View [/FitV " << link_dest->getLeft ()
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case destFitR:
+          output
+            << "[ /Dest (" << encode_name (name)
+            << ") /Page " << pagenum
+            << " /View [/FitR " << link_dest->getLeft ()
+            << " " << link_dest->getBottom ()
+            << " " << link_dest->getRight ()
+            << " " << link_dest->getTop ()
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case destFitB:
+          output
+            << "[ /Dest (" << encode_name (name)
+            << ") /Page " << pagenum
+            << " /View [/FitB] /DEST pdfmark" << std::endl;
+          break;
+        case destFitBH:
+          output
+            << "[ /Dest (" << encode_name (name)
+            << ") /Page " << pagenum
+            << " /View [/FitBH " << link_dest->getTop ()
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case destFitBV:
+          output
+            << "[ /Dest (" << encode_name (name)
+            << ") /Page " << pagenum
+            << " /View [/FitBV " << link_dest->getLeft ()
+            << "] /DEST pdfmark" << std::endl;
+          break;
         default:
           output << "%  link_dest kind is unknown." << std::endl;
           break;
