@@ -6,15 +6,14 @@ TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
 
 check_PROGRAMS = dummy
 dummy_SOURCES = dummy.cc
-dummy_DEPENDENCIES = desttype.pdf destonly.pdf nodest.pdf \
-	pdfdocencoding.pdf utf16.pdf utf8.pdf binary.pdf \
-	namedict.pdf
+dummy_DEPENDENCIES = $(TESTPDFS) $(TESTMARKS)
 
-EXTRA_DIST = test-desttype-round.sh \
-	desttype.tex desttype.pdf destonly.tex destonly.pdf \
-	nodest.tex nodest.pdf pdfdocencoding.tex pdfdocencoding.pdf \
-	utf16.tex utf16.pdf utf8.tex utf8.pdf binary.tex binary.pdf \
-	addnamedict.ps namedict.pdf
+TESTTEXS = $(notdir $(wildcard $(srcdir)/*.tex))
+TESTPDFS = $(TESTTEXS:.tex=.pdf) namedict.pdf
+TESTMARKS = $(TESTPDFS:.pdf=.mark)
+
+EXTRA_DIST = test-desttype-round.sh addnamedict.ps \
+	$(TESTTEXS) $(TESTPDFS) $(TESTMARKS)
 
 PDFTEX = pdftex
 GS = gs
@@ -23,7 +22,11 @@ namedict.pdf: nodest.pdf addnamedict.ps
 	$(GS) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=$@ \
 		-dCompatibilityLevel=1.1 $^
 
-SUFFIXES = .tex .pdf
+SUFFIXES = .tex .pdf .mark
 
 .tex.pdf:
 	$(PDFTEX) $<
+
+.pdf.mark:
+	$(top_builddir)/src/extractpdfmark $< | \
+		$(GREP) -v "^%\|^$$" > $@
