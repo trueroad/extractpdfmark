@@ -8,6 +8,7 @@ MARK_LOG_COMPILER = $(srcdir)/test-expected-pdfmark.sh
 TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
 	srcdir=$(srcdir) \
 	GREP=$(GREP) \
+	DIFF=$(DIFF) \
 	GS=$(GS)
 
 check_PROGRAMS = dummy

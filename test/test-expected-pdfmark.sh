@@ -16,4 +16,9 @@ fi
 ${top_builddir}/src/extractpdfmark ${PDFFILENAME} | \
     ${GREP} -v "^%\|^$" > ${PSFILENAME}
 
-diff -ubwBE  ${MARKFILENAME} ${PSFILENAME}
+if test x"$DIFF" = x; then
+    # skip
+    exit 77
+fi
+
+${DIFF} -ubwBE  ${MARKFILENAME} ${PSFILENAME}
