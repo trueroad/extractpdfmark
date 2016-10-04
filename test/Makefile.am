@@ -1,18 +1,25 @@
-TESTS = test-desttype-round.sh
+TESTS = test-desttype-round.sh $(TESTMARKS)
+
+TEST_EXTENSIONS = .sh .mark
+
+SH_LOG_COMPILER = sh
+MARK_LOG_COMPILER = $(srcdir)/test-expected-pdfmark.sh
 
 TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
 	srcdir=$(srcdir) \
+	GREP=$(GREP) \
 	GS=$(GS)
 
 check_PROGRAMS = dummy
 dummy_SOURCES = dummy.cc
 dummy_DEPENDENCIES = $(TESTPDFS) $(TESTMARKS)
 
-TESTTEXS = $(notdir $(wildcard $(srcdir)/*.tex))
+TESTTEXS = binary.tex destonly.tex desttype.tex nodest.tex \
+	pdfdocencoding.tex utf16.tex utf8.tex
 TESTPDFS = $(TESTTEXS:.tex=.pdf) namedict.pdf
 TESTMARKS = $(TESTPDFS:.pdf=.mark)
 
-EXTRA_DIST = test-desttype-round.sh addnamedict.ps \
+EXTRA_DIST = test-desttype-round.sh test-expected-pdfmark.sh addnamedict.ps \
 	$(TESTTEXS) $(TESTPDFS) $(TESTMARKS)
 
 PDFTEX = pdftex
