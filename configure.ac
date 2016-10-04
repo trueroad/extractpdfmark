@@ -29,9 +29,6 @@ PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_CHECK_HEADER_STDBOOL
-AC_C_INLINE
-AC_TYPE_SIZE_T
 AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 
 # Checks for library functions.
