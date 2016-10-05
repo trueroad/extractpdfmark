@@ -9,7 +9,7 @@ TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
 	srcdir=$(srcdir) \
 	GREP=$(GREP) \
 	DIFF=$(DIFF) \
-	GS=$(GS)
+	GHOSTSCRIPT=$(GHOSTSCRIPT)
 
 # Source files for test PDFs
 TESTTEXS = binary.tex destonly.tex desttype.tex nodest.tex \
@@ -26,13 +26,12 @@ EXTRA_DIST = test-round.sh test-expected-pdfmark.sh addnamedict.ps \
 	$(TESTTEXS) $(TESTPDFS) $(TESTMARKS)
 
 PDFTEX = pdftex
-GS = gs
 
 # For name object (PDF 1.1) handling test
 # PDF 1.2+ uses name tree intead of name object.
 # So most PDFs use name tree for named destination.
 namedict.pdf: nodest.pdf addnamedict.ps
-	$(GS) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=$@ \
+	$(GHOSTSCRIPT) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=$@ \
 		-dCompatibilityLevel=1.1 $^
 
 # Generate test PDFs

@@ -11,8 +11,13 @@ if [ ! -e ${PDF} ]; then
     PDF="${srcdir}/${BASENAME}.pdf"
 fi
 
-${GS} -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=${PDF2} \
-      ${PDF} ${EXTRACTEDPDFMARK}
+if test x"$GHOSTSCRIPT" = x; then
+    # skip
+    exit 77
+fi
+
+${GHOSTSCRIPT} -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=${PDF2} \
+    ${PDF} ${EXTRACTEDPDFMARK}
 ${top_builddir}/src/extractpdfmark -o ${EXTRACTEDPDFMARK2} ${PDF2}
 
 if test x"$DIFF" = x; then
