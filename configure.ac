@@ -43,6 +43,15 @@ else
 fi
 AC_SUBST([PDFTEX])
 
+AC_MSG_CHECKING([for pre-generated expected PDFmark files])
+if test ! -e ${srcdir}/test/desttype-expected.pdfmark ; then
+   AC_MSG_RESULT([no])
+   AC_MSG_WARN([PDFmark files will be generated.])
+   AC_MSG_WARN([`make check' cannot compare with the correct expected results.])
+else
+   AC_MSG_RESULT([yes])
+fi
+
 # Checks for libraries.
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])
