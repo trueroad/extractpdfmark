@@ -11,10 +11,6 @@ TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
 	DIFF=$(DIFF) \
 	GS=$(GS)
 
-check_PROGRAMS = dummy
-dummy_SOURCES = dummy.cc
-dummy_DEPENDENCIES = $(TESTPDFS) $(TESTMARKS)
-
 TESTTEXS = binary.tex destonly.tex desttype.tex nodest.tex \
 	pdfdocencoding.tex utf16.tex utf8.tex
 TESTPDFS = $(TESTTEXS:.tex=.pdf) namedict.pdf
