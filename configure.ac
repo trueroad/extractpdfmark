@@ -24,8 +24,15 @@ AC_PROG_RANLIB
 AC_PROG_GREP
 
 AC_PATH_PROG([DIFF], [diff])
-AC_PATH_PROG([GHOSTSCRIPT], [gs])
+if test x"$DIFF" = x; then
+   AC_MSG_WARN([diff isn't found. `make check' will skip tests.])
+fi
 AC_SUBST([DIFF])
+
+AC_PATH_PROG([GHOSTSCRIPT], [gs])
+if test x"$GHOSTSCRIPT" = x; then
+   AC_MSG_WARN([Ghostscript isn't found. `make check' will skip some tests.])
+fi
 AC_SUBST([GHOSTSCRIPT])
 
 AC_MSG_CHECKING([for pre-generated test PDFs])
