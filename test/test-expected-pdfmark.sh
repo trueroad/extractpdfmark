@@ -1,24 +1,24 @@
 #!/bin/sh
 
-MARKFILENAME=$1
-BASENAME=`basename ${MARKFILENAME} .mark`
+EXPECTEDPDFMARK=$1
+BASENAME=`basename ${EXPECTEDPDFMARK} | sed -e "s/-expected\.pdfmark$//"`
 
-PDFFILENAME="${BASENAME}.pdf"
-PSFILENAME="${BASENAME}.ps"
+PDF="${BASENAME}.pdf"
+EXTRACTEDPDFMARK="${BASENAME}-expected-test.pdfmark"
 
-if [ ! -e ${MARKFILENAME} ]; then
-    MARKFILENAME="${srcdir}/${BASENAME}.mark"
+if [ ! -e ${EXPECTEDPDFMARK} ]; then
+    EXPEXTEDPDFMARK="${srcdir}/${BASENAME}-expected.pdfmark"
 fi
-if [ ! -e ${PDFFILENAME} ]; then
-    PDFFILENAME="${srcdir}/${BASENAME}.pdf"
+if [ ! -e ${PDF} ]; then
+    PDF="${srcdir}/${BASENAME}.pdf"
 fi
 
-${top_builddir}/src/extractpdfmark ${PDFFILENAME} | \
-    ${GREP} -v "^%\|^$" > ${PSFILENAME}
+${top_builddir}/src/extractpdfmark ${PDF} | \
+    ${GREP} -v "^%\|^$" > ${EXTRACTEDPDFMARK}
 
 if test x"$DIFF" = x; then
     # skip
     exit 77
 fi
 
-${DIFF} -ubwBE  ${MARKFILENAME} ${PSFILENAME}
+${DIFF} -ubwBE  ${EXPECTEDPDFMARK} ${EXTRACTEDPDFMARK}
