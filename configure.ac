@@ -28,6 +28,21 @@ AC_PATH_PROG([GHOSTSCRIPT], [gs])
 AC_SUBST([DIFF])
 AC_SUBST([GHOSTSCRIPT])
 
+AC_MSG_CHECKING([for pre-generated test PDFs])
+if test ! -e ${srcdir}/test/desttype.pdf ; then
+   AC_MSG_RESULT([no])
+   AC_PATH_PROG([PDFTEX], [pdftex])
+   if test x"$PDFTEX" = x; then
+      AC_MSG_WARN([pdftex isn't found. Test PDFs cannot be generated.])
+      AC_MSG_WARN([You cannot use `make check'.])
+   else
+      AC_MSG_NOTICE([pdftex is found. Test PDFs will be generated.])
+   fi
+else
+   AC_MSG_RESULT([yes])
+fi
+AC_SUBST([PDFTEX])
+
 # Checks for libraries.
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])
