@@ -1,9 +1,9 @@
-TESTS = test-desttype-round.sh $(TESTMARKS)
+TESTS = $(TESTMARKS) $(TESTROUNDS)
 
-TEST_EXTENSIONS = .sh .pdfmark
+TEST_EXTENSIONS = .pdfmark .ps
 
-SH_LOG_COMPILER = sh
 PDFMARK_LOG_COMPILER = $(srcdir)/test-expected-pdfmark.sh
+PS_LOG_COMPILER = $(srcdir)/test-round.sh
 
 TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
 	srcdir=$(srcdir) \
@@ -19,8 +19,10 @@ TESTTEXS = binary.tex destonly.tex desttype.tex nodest.tex \
 	pdfdocencoding.tex utf16.tex utf8.tex
 TESTPDFS = $(TESTTEXS:.tex=.pdf) namedict.pdf
 TESTMARKS = $(TESTPDFS:.pdf=-expected.pdfmark)
+TESTROUNDS = $(TESTPDFS:.pdf=-round.ps)
 
-EXTRA_DIST = test-desttype-round.sh test-expected-pdfmark.sh addnamedict.ps \
+# TESTROUNDS should not be contained.
+EXTRA_DIST = test-round.sh test-expected-pdfmark.sh addnamedict.ps \
 	$(TESTTEXS) $(TESTPDFS) $(TESTMARKS)
 
 PDFTEX = pdftex
@@ -36,3 +38,6 @@ namedict.pdf: nodest.pdf addnamedict.ps
 %-expected.pdfmark: %.pdf
 	$(top_builddir)/src/extractpdfmark $< | \
 		$(GREP) -v "^%\|^$$" > $@
+
+%-round.ps: %.pdf
+	$(top_builddir)/src/extractpdfmark -o $@ $<
