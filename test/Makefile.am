@@ -13,7 +13,8 @@ TESTS_ENVIRONMENT = top_builddir=$(top_builddir) \
 
 # Source files for test PDFs
 TESTTEXS = binary.tex destonly.tex desttype.tex nodest.tex \
-	pdfdocencoding.tex utf16.tex utf8.tex
+	pdfdocencoding.tex utf16.tex utf8.tex \
+	pagemode-usenone.tex pagemode-thumbs.tex pagemode-fullscreen.tex
 # Test PDFs
 TESTPDFS = $(TESTTEXS:.tex=.pdf) namedict.pdf
 # Expected PDFmark for expected pdf test
