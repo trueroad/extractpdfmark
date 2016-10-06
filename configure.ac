@@ -85,6 +85,19 @@ AS_CASE(["$with_poppler"],
                   PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3],
                       [with_poppler="core-private"])])],
         [AC_MSG_ERROR([unrecognized --with-poppler argument: $with_poppler])])
+AS_CASE(["$with_poppler"],
+        ["core"],
+            [POPPLER_IF="poppler-core"
+             use_library="core"
+             AC_DEFINE([HAVE_POPPLER_CORE_IF], [1],
+                       [Define if poppler-core is selected])],
+        ["core-private"],
+            [POPPLER_IF="poppler-core private"
+             use_library="core"],
+        [AC_MSG_ERROR([programming error])])
+AM_CONDITIONAL([USE_POPPLER_CORE], [test $use_library = core])
+AC_DEFINE_UNQUOTED([PACKAGE_STRING], ["$PACKAGE_STRING (with $POPPLER_IF)"],
+    [Define to the full name and version, method of this package.])
 
 # Checks for header files.
 
