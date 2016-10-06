@@ -23,7 +23,9 @@
 #include <Link.h>
 
 #include "destname.hh"
+#ifndef HAVE_POPPLER_CORE_IF
 #include "destname-private.hh"
+#endif
 #include "../encodename.hh"
 
 inline std::string encode_name (GooString *name)
@@ -123,6 +125,34 @@ void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
     }
 }
 
+#ifdef HAVE_POPPLER_CORE_IF
+
+// Use poppler-core interface
+void put_destnametree (PDFDoc *doc, std::ostream &output)
+{
+  Catalog *catalog = doc->getCatalog ();
+  if (catalog && catalog->isOk ())
+    {
+      int len = catalog->numDestNameTree ();
+      for (int i=0; i<len; ++i)
+        {
+          put_destname (doc, catalog->getDestNameTreeName (i), output);
+        }
+
+      len = catalog->numDests ();
+      for (int i=0; i<len; ++i)
+        {
+          GooString gs (catalog->getDestsName (i));
+          put_destname (doc, &gs, output);
+        }
+    }
+  else
+    output << "% Catalog is not OK" << std::endl;
+}
+
+#else  // HAVE_POPPLER_CORE_IF
+
+// Use poppler-core private access
 void put_destnametree (PDFDoc *doc, std::ostream &output)
 {
   Catalog *catalog = doc->getCatalog ();
@@ -156,3 +186,5 @@ void put_destnametree (PDFDoc *doc, std::ostream &output)
   else
     output << "% Catalog is not OK" << std::endl;
 }
+
+#endif  // HAVE_POPPLER_CORE_IF
