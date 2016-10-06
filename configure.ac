@@ -29,9 +29,11 @@ AS_IF([test "x$DIFF" = x],
 AC_SUBST([DIFF])
 
 AC_PATH_PROG([GHOSTSCRIPT], [gs])
-AS_IF([test "x$GHOSTSCRIPT" = x],
-      [AC_MSG_WARN(
-           [Ghostscript isn't found. `make check' will skip some tests.])])
+AM_CONDITIONAL([HAVE_GHOSTSCRIPT], [test ! "x$GHOSTSCRIPT" = x])
+AM_COND_IF([HAVE_GHOSTSCRIPT],
+           ,
+           [AC_MSG_WARN(
+                [Ghostscript isn't found. `make check' will skip some tests.])])
 AC_SUBST([GHOSTSCRIPT])
 
 AC_MSG_CHECKING([for pre-generated test PDFs])

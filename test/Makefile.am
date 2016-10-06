@@ -16,7 +16,10 @@ TESTTEXS = binary.tex destonly.tex desttype.tex nodest.tex \
 	pdfdocencoding.tex utf16.tex utf8.tex \
 	pagemode-usenone.tex pagemode-thumbs.tex pagemode-fullscreen.tex
 # Test PDFs
-TESTPDFS = $(TESTTEXS:.tex=.pdf) namedict.pdf
+TESTPDFS = $(TESTTEXS:.tex=.pdf)
+if HAVE_GHOSTSCRIPT
+TESTPDFS += namedict.pdf
+endif
 # Expected PDFmark for expected pdf test
 TESTMARKS = $(TESTPDFS:.pdf=-expected.pdfmark)
 # Extracted PDFmark for round test
