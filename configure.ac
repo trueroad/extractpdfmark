@@ -61,7 +61,30 @@ AS_IF([test ! -e ${srcdir}/test/desttype-expected.pdfmark],
 
 # Checks for libraries.
 PKG_PROG_PKG_CONFIG
-PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])
+
+AC_ARG_WITH([poppler],
+             AS_HELP_STRING([--with-poppler=@<:@auto|core|core-private@:>@],
+                            [Poppler I/F (default: auto)]),
+                            ,
+                            [with_poppler=auto])
+AS_CASE(["$with_poppler"],
+        ["core"],
+            [AC_MSG_NOTICE([--with-poppler=core requires poppler >= 0.48.0])
+             PKG_CHECK_MODULES([POPPLER], [poppler >= 0.48.0])],
+        ["core-private"],
+            [AC_MSG_NOTICE(
+                 [--with-poppler=core-private requires poppler >= 0.13.3])
+             PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])],
+        ["auto"],
+            [AC_MSG_NOTICE([--with-poppler=auto])
+             AC_MSG_NOTICE([trying for core (poppler >= 0.48.0)])
+             PKG_CHECK_MODULES(
+                 [POPPLER], [poppler >= 0.48.0],
+                 [with_poppler="core"],
+                 [AC_MSG_NOTICE([trying for core-private (poppler >= 0.13.3)])
+                  PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3],
+                      [with_poppler="core-private"])])],
+        [AC_MSG_ERROR([unrecognized --with-poppler argument: $with_poppler])])
 
 # Checks for header files.
 
