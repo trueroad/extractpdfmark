@@ -26,6 +26,11 @@ TESTROUNDS = $(TESTPDFS:.pdf=-round.ps)
 EXTRA_DIST = test-round.sh test-expected-pdfmark.sh addnamedict.ps \
 	$(TESTTEXS) $(TESTPDFS) $(TESTMARKS)
 
+# For `make clean'
+CLEANFILES = $(TESTMARKS:-expected.pdfmark=-expected-test.pdfmark) \
+	$(TESTROUNDS:-round.ps=-round-test.pdf) \
+	$(TESTROUNDS:-round.ps=-round-test.ps)
+
 # For name object (PDF 1.1) handling test
 # PDF 1.2+ uses name tree intead of name object.
 # So most PDFs use name tree for named destination.
