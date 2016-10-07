@@ -30,6 +30,8 @@ public:
   std::string pagemode (void);
   std::string destname (void);
 
+  std::string encode_name (GooString *name);
+
   poppler_core () :
     doc {nullptr}
   {

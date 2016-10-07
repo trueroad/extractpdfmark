@@ -28,6 +28,8 @@ public:
   virtual std::string pagemode (void) = 0;
   virtual std::string destname (void) = 0;
 
+  std::string encode_name (const std::string &name);
+
   virtual ~output_pdfmark () = default;
 };
 

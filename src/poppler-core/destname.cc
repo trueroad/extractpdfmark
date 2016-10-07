@@ -23,16 +23,16 @@
 #include <Link.h>
 
 #include "poppler-core.hh"
+
 #ifndef HAVE_POPPLER_CORE_IF
 #include "destname-private.hh"
 #endif
-#include "../encodename.hh"
 
-inline std::string encode_name (GooString *name)
+inline std::string poppler_core::encode_name (GooString *name)
 {
   std::string str {name->getCString (),
       static_cast<std::string::size_type>(name->getLength ())};
-  return encode_name (str);
+  return output_pdfmark::encode_name (str);
 }
 
 std::string poppler_core::build_destname (GooString *name)

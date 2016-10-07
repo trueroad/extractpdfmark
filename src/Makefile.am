@@ -2,7 +2,7 @@ SUBDIRS =
 
 bin_PROGRAMS = extractpdfmark
 extractpdfmark_SOURCES = main.cc output-pdfmark.hh cmdlineparse.hh \
-	encodename.cc encodename.hh \
+	encodename.cc \
 	utf16.cc utf16.hh \
 	utf8.cc utf8.hh
 
