@@ -30,7 +30,14 @@ public:
 
   std::string encode_name (const std::string &name);
 
+  output_pdfmark () = default;
   virtual ~output_pdfmark () = default;
+
+private:
+  output_pdfmark (output_pdfmark const&) = delete;
+  output_pdfmark (output_pdfmark&&) = delete;
+  output_pdfmark& operator = (output_pdfmark const&) = delete;
+  output_pdfmark& operator = (output_pdfmark&&) = delete;
 };
 
 std::unique_ptr<output_pdfmark> create_output_pdfmark (void);
