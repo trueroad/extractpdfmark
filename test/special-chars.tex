@@ -1,0 +1,111 @@
+% Check for special character destination names
+
+%\pdfobjcompresslevel=0
+\pdfcatalog{/PageMode /UseOutlines}
+
+\catcode`\@=0
+@catcode`@\=11
+@def@bs{\}
+@catcode`@\=0
+\catcode`@=12
+
+% Destination name could be binary.
+% title shuld be PDFDocEncoding (also US-ASCII) or UTF-16.
+\pdfoutline goto name{^^20} {U+0020 SPACE}
+\pdfoutline goto name{\bs 050} {U+0028 LEFT PARENTHESIS}
+\pdfoutline goto name{\bs 051} {U+0029 RIGHT PARENTHESIS}
+\pdfoutline goto name{<} {U+003C LESS-THAN SIGN}
+\pdfoutline goto name{>} {U+003E GREATER-THAN SIGN}
+\pdfoutline goto name{[} {U+005B LEFT SQUARE BRACKET}
+\pdfoutline goto name{]} {U+005D RIGHT SQUARE BRACKET}
+\pdfoutline goto name{\bs 173} {U+007B LEFT CURLY BRACKET}
+\pdfoutline goto name{\bs 175} {U+007D RIGHT CURLY BRACKET}
+\pdfoutline goto name{/} {U+002F SOLIDUS}
+\pdfoutline goto name{\bs 134} {U+005C REVERSE SOLIDUS}
+\pdfoutline goto name{\bs 045} {U+0025 PERCENT SIGN}
+\pdfoutline goto name{\bs 043} {U+0023 NUMBER SIGN}
+\pdfoutline goto name{\bs 177} {U+007F DELETE}
+
+\pdfdest name{^^20} xyz
+U+0020 SPACE
+
+\vfill
+\eject
+
+\pdfdest name{\bs 050} xyz
+U+0028 LEFT PARENTHESIS
+
+\vfill
+\eject
+
+\pdfdest name{\bs 051} xyz
+U+0029 RIGHT PARENTHESIS
+
+\vfill
+\eject
+
+\pdfdest name{<} xyz
+U+003C LESS-THAN SIGN
+
+\vfill
+\eject
+
+\pdfdest name{>} xyz
+U+003E GRATER-THAN SIGN
+
+\vfill
+\eject
+
+\pdfdest name{[} xyz
+U+005B LEFT SQUARE BRACKET
+
+\vfill
+\eject
+
+\pdfdest name{]} xyz
+U+005D RIGHT SQUARE BRACKET
+
+\vfill
+\eject
+
+\pdfdest name{\bs 173} xyz
+U+007B LEFT CURLY BRACKET
+
+\vfill
+\eject
+
+\pdfdest name{\bs 175} xyz
+U+007D RIGHT CURLY BRACKET
+
+\vfill
+\eject
+
+\pdfdest name{/} xyz
+U+002F SOLIDUS
+
+\vfill
+\eject
+
+\pdfdest name{\bs 134} xyz
+U+005C REVERSE SOLIDUS
+
+\vfill
+\eject
+
+\pdfdest name{\bs 045} xyz
+U+0025 PERCENT SIGN
+
+\vfill
+\eject
+
+\pdfdest name{\bs 043} xyz
+U+0023 NUMBER SIGN
+
+\vfill
+\eject
+
+\pdfdest name{\bs 177} xyz
+U+007F DELETE
+
+\vfill
+\end
