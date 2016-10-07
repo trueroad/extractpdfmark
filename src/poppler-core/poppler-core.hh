@@ -30,15 +30,16 @@ public:
   std::string pagemode (void);
   std::string destname (void);
 
-  std::string encode_name (GooString *name);
-
   poppler_core () :
     doc {nullptr}
   {
   }
 
 private:
+  std::string build_destname (const std::string &name, LinkDest *link_dest);
+  std::string build_destname (GooString *name, LinkDest *link_dest);
   std::string build_destname (GooString *name);
+  std::string build_destname (const char *name);
   std::unique_ptr<PDFDoc> doc;
 };
 

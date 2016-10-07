@@ -28,18 +28,37 @@
 #include "destname-private.hh"
 #endif
 
-inline std::string poppler_core::encode_name (GooString *name)
+inline std::string goo_to_string (GooString *goo)
 {
-  std::string str {name->getCString (),
-      static_cast<std::string::size_type>(name->getLength ())};
-  return output_pdfmark::encode_name (str);
+  return std::string {goo->getCString (),
+      static_cast<std::string::size_type>(goo->getLength ())};
 }
 
-std::string poppler_core::build_destname (GooString *name)
+inline std::string poppler_core::build_destname (GooString *name,
+                                                 LinkDest *link_dest)
+{
+  std::string str = goo_to_string (name);
+  return build_destname (str, link_dest);
+}
+
+inline std::string poppler_core::build_destname (GooString *name)
+{
+  std::string str = goo_to_string (name);
+  auto link_dest = std::unique_ptr<LinkDest> (doc->findDest (name));
+  return build_destname (str, link_dest.get ());
+}
+
+inline std::string poppler_core::build_destname (const char *name)
+{
+  GooString goo {name};
+  auto link_dest = std::unique_ptr<LinkDest> (doc->findDest (&goo));
+  return build_destname (name, link_dest.get ());
+}
+
+std::string poppler_core::build_destname (const std::string &name,
+                                          LinkDest *link_dest)
 {
   std::stringstream ss;
-  std::unique_ptr<LinkDest> link_dest =
-    std::unique_ptr<LinkDest> (doc->findDest (name));
 
   if (link_dest)
     {
@@ -141,14 +160,15 @@ std::string poppler_core::destname (void)
       int len = catalog->numDestNameTree ();
       for (int i=0; i<len; ++i)
         {
-          ss << build_destname (catalog->getDestNameTreeName (i));
+          ss << build_destname (catalog->getDestNameTreeName (i),
+                                catalog->getDestNameTreeDest (i));
         }
 
       len = catalog->numDests ();
       for (int i=0; i<len; ++i)
         {
-          GooString gs (catalog->getDestsName (i));
-          ss << build_destname (&gs);
+          ss << build_destname (catalog->getDestsName (i),
+                                catalog->getDestsDest (i));
         }
     }
   else
@@ -187,8 +207,7 @@ std::string poppler_core::destname (void)
           int len = obj->dictGetLength ();
           for (int i=0; i<len; ++i)
             {
-              GooString gs {obj->dictGetKey (i)};
-              ss << build_destname (&gs);
+              ss << build_destname (obj->dictGetKey (i));
             }
         }
     }
