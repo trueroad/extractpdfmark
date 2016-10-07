@@ -31,10 +31,8 @@ std::string output_pdfmark::encode (const std::string &name)
 
   for (auto c: name)
     {
-      if (bflag || static_cast<unsigned char>(c) < 0x20 || c == ' ' ||
-          c == '(' || c == ')' || c == '<' || c == '>' ||
-          c == '[' || c == ']' || c == '{' || c == '}' ||
-          c == '/' || c == '\\' || c == '%' || c == '#')
+      if (bflag || static_cast<unsigned char>(c) < 0x20 ||
+          c == '(' || c == ')' || c == '\\' || c == 0x7f)
         {
           encoded
             << '\\'
