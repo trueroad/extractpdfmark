@@ -18,9 +18,19 @@
 #ifndef INCLUDE_GUARD_OUTPUT_PDFMARK_HH
 #define INCLUDE_GUARD_OUTPUT_PDFMARK_HH
 
-#include <ostream>
 #include <string>
+#include <memory>
 
-int output_pdfmark (const std::string &pdf_filename, std::ostream &output);
+class output_pdfmark
+{
+public:
+  virtual bool open (const std::string &pdf_filename) = 0;
+  virtual std::string pagemode (void) = 0;
+  virtual std::string destname (void) = 0;
+
+  virtual ~output_pdfmark () = default;
+};
+
+std::unique_ptr<output_pdfmark> create_output_pdfmark (void);
 
 #endif // INCLUDE_GUARD_OUTPUT_PDFMARK_HH

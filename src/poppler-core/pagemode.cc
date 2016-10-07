@@ -17,39 +17,43 @@
 
 #include "config.h"
 
-#include <iostream>
+#include <sstream>
 #include <PDFDoc.h>
 
-#include "pagemode.hh"
+#include "poppler-core.hh"
 
-void put_pagemode (PDFDoc *doc, std::ostream &output)
+std::string poppler_core::pagemode (void)
 {
+  std::stringstream ss;
   Catalog *catalog = doc->getCatalog ();
+
   if (catalog && catalog->isOk ())
     {
       switch (catalog->getPageMode ())
         {
         case Catalog::pageModeNone:
-          output
+          ss
             << "[ /PageMode /UseNone /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeOutlines:
-          output
+          ss
             << "[ /PageMode /UseOutlines /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeThumbs:
-          output
+          ss
             << "[ /PageMode /UseThumbs /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeFullScreen:
-          output
+          ss
             << "[ /PageMode /FullScreen /DOCVIEW pdfmark" << std::endl;
           break;
         default:
-          output << "% PageMode unknown" << std::endl;
+          ss << "% PageMode unknown" << std::endl;
           break;
         }
     }
   else
-    output << "% PageMode unset" << std::endl;
+    ss << "% PageMode unset" << std::endl;
+
+  return ss.str ();
 }

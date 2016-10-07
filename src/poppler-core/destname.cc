@@ -17,12 +17,12 @@
 
 #include "config.h"
 
-#include <iostream>
 #include <string>
+#include <sstream>
 #include <PDFDoc.h>
 #include <Link.h>
 
-#include "destname.hh"
+#include "poppler-core.hh"
 #ifndef HAVE_POPPLER_CORE_IF
 #include "destname-private.hh"
 #endif
@@ -35,9 +35,12 @@ inline std::string encode_name (GooString *name)
   return encode_name (str);
 }
 
-void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
+std::string poppler_core::build_destname (GooString *name)
 {
-  LinkDest *link_dest = doc->findDest (name);
+  std::stringstream ss;
+  std::unique_ptr<LinkDest> link_dest =
+    std::unique_ptr<LinkDest> (doc->findDest (name));
+
   if (link_dest)
     {
       int pagenum;
@@ -54,7 +57,7 @@ void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
       switch (link_dest->getKind ())
         {
         case destXYZ:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/XYZ " << link_dest->getLeft ()
@@ -63,27 +66,27 @@ void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFit:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/Fit] /DEST pdfmark" << std::endl;
           break;
         case destFitH:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/FitH " << link_dest->getTop ()
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFitV:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/FitV " << link_dest->getLeft ()
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFitR:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/FitR " << link_dest->getLeft ()
@@ -93,69 +96,75 @@ void put_destname (PDFDoc *doc, GooString *name, std::ostream &output)
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFitB:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/FitB] /DEST pdfmark" << std::endl;
           break;
         case destFitBH:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/FitBH " << link_dest->getTop ()
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFitBV:
-          output
+          ss
             << "[ /Dest (" << encode_name (name)
             << ") /Page " << pagenum
             << " /View [/FitBV " << link_dest->getLeft ()
             << "] /DEST pdfmark" << std::endl;
           break;
         default:
-          output << "%  link_dest kind is unknown." << std::endl;
+          ss << "%  link_dest kind is unknown." << std::endl;
           break;
         }
-
-      delete link_dest;
     }
   else
     {
-      output << "%  link_dest is null." << std::endl;
+      ss << "%  link_dest is null." << std::endl;
     }
+
+  return ss.str ();
 }
 
 #ifdef HAVE_POPPLER_CORE_IF
 
 // Use poppler-core interface
-void put_destnametree (PDFDoc *doc, std::ostream &output)
+std::string poppler_core::destname (void)
 {
+  std::stringstream ss;
   Catalog *catalog = doc->getCatalog ();
+
   if (catalog && catalog->isOk ())
     {
       int len = catalog->numDestNameTree ();
       for (int i=0; i<len; ++i)
         {
-          put_destname (doc, catalog->getDestNameTreeName (i), output);
+          ss << build_destname (catalog->getDestNameTreeName (i));
         }
 
       len = catalog->numDests ();
       for (int i=0; i<len; ++i)
         {
           GooString gs (catalog->getDestsName (i));
-          put_destname (doc, &gs, output);
+          ss << build_destname (&gs);
         }
     }
   else
-    output << "% Catalog is not OK" << std::endl;
+    ss << "% Catalog is not OK" << std::endl;
+
+  return ss.str ();
 }
 
 #else  // HAVE_POPPLER_CORE_IF
 
 // Use poppler-core private access
-void put_destnametree (PDFDoc *doc, std::ostream &output)
+std::string poppler_core::destname (void)
 {
+  std::stringstream ss;
   Catalog *catalog = doc->getCatalog ();
+
   if (catalog && catalog->isOk ())
     {
       NameTree *destnametree = get_destnametree (catalog);
@@ -164,12 +173,12 @@ void put_destnametree (PDFDoc *doc, std::ostream &output)
           int len = destnametree->numEntries ();
           for (int i=0; i<len; ++i)
             {
-              put_destname (doc, destnametree->getName (i), output);
+              ss << build_destname (destnametree->getName (i));
             }
         }
       else
         {
-          output << "% NameTree is null" << std::endl;
+          ss << "% NameTree is null" << std::endl;
         }
 
       Object *obj = catalog->getDests ();
@@ -179,12 +188,14 @@ void put_destnametree (PDFDoc *doc, std::ostream &output)
           for (int i=0; i<len; ++i)
             {
               GooString gs {obj->dictGetKey (i)};
-              put_destname (doc, &gs, output);
+              ss << build_destname (&gs);
             }
         }
     }
   else
-    output << "% Catalog is not OK" << std::endl;
+    ss << "% Catalog is not OK" << std::endl;
+
+  return ss.str ();
 }
 
 #endif  // HAVE_POPPLER_CORE_IF

@@ -18,35 +18,35 @@
 #include "config.h"
 
 #include <iostream>
+#include <memory>
 #include <PDFDoc.h>
 #include <PDFDocFactory.h>
 
-#include "../output-pdfmark.hh"
-#include "pagemode.hh"
-#include "destname.hh"
+#include "poppler-core.hh"
 
-int output_pdfmark (const std::string &pdf_filename, std::ostream &output)
+std::unique_ptr<output_pdfmark> create_output_pdfmark (void)
 {
-  GooString *fileName = new GooString (pdf_filename.c_str (),
-                                       pdf_filename.length ());
-  PDFDoc *doc = PDFDocFactory().createPDFDoc(*fileName, NULL, NULL);
-  delete fileName;
+  return std::unique_ptr<output_pdfmark> (new poppler_core ());
+}
+
+bool poppler_core::open (const std::string &pdf_filename)
+{
+  auto fileName = std::unique_ptr<GooString>
+    (new GooString {pdf_filename.c_str (),
+        static_cast<int> (pdf_filename.length ())});
+  doc = std::unique_ptr<PDFDoc>
+    (PDFDocFactory ().createPDFDoc (*fileName, NULL, NULL));
 
   if (!doc)
     {
       std::cerr << "open failed." << std::endl;
-      return 1;
+      return false;
     }
   if (!doc->isOk ())
     {
       std::cerr << "file is not OK." << std::endl;
-      delete doc;
-      return 1;
+      return false;
     }
 
-  put_pagemode (doc, output);
-  put_destnametree (doc, output);
-
-  delete doc;
-  return 0;
+  return true;
 }

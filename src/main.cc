@@ -61,5 +61,11 @@ int main (int argc, char *argv[])
   *pout << "% " << PACKAGE_STRING << std::endl
         << "% " << PACKAGE_URL << std::endl << std::endl;
 
-  return output_pdfmark (cmd.get_unamed_args ().at (0), *pout);
+  auto opdfmark = create_output_pdfmark ();
+  if (!opdfmark->open (cmd.get_unamed_args ().at (0)))
+    return 1;
+
+  *pout << opdfmark->pagemode ();
+  *pout << opdfmark->destname ();
+  return 0;
 }
