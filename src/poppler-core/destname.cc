@@ -17,8 +17,10 @@
 
 #include "config.h"
 
+#include <iostream>
 #include <string>
 #include <sstream>
+#include <map>
 #include <PDFDoc.h>
 #include <Link.h>
 
@@ -34,25 +36,34 @@ inline std::string goo_to_string (GooString *goo)
       static_cast<std::string::size_type>(goo->getLength ())};
 }
 
-inline std::string poppler_core::build_destname (GooString *name,
-                                                 LinkDest *link_dest)
+inline void poppler_core::add_destname (GooString *name,
+                                        LinkDest *link_dest)
 {
   std::string str = goo_to_string (name);
-  return build_destname (str, link_dest);
+  add_destname (str, link_dest);
 }
 
-inline std::string poppler_core::build_destname (GooString *name)
+inline void poppler_core::add_destname (GooString *name)
 {
   std::string str = goo_to_string (name);
   auto link_dest = std::unique_ptr<LinkDest> (doc->findDest (name));
-  return build_destname (str, link_dest.get ());
+  add_destname (str, link_dest.get ());
 }
 
-inline std::string poppler_core::build_destname (const char *name)
+inline void poppler_core::add_destname (const char *name)
 {
   GooString goo {name};
   auto link_dest = std::unique_ptr<LinkDest> (doc->findDest (&goo));
-  return build_destname (name, link_dest.get ());
+  add_destname (name, link_dest.get ());
+}
+
+inline void poppler_core::add_destname (const std::string &name,
+                                        LinkDest *link_dest)
+{
+  if (link_dest)
+    {
+      name_map.insert (std::make_pair (name, *link_dest));
+    }
 }
 
 std::string poppler_core::build_destname (const std::string &name,
@@ -147,34 +158,46 @@ std::string poppler_core::build_destname (const std::string &name,
   return ss.str ();
 }
 
+std::string poppler_core::build_destnames (void)
+{
+  std::string str;
+
+  for (auto &elm: name_map)
+    {
+      str += build_destname (elm.first, &elm.second);
+    }
+
+  return str;
+}
+
 #ifdef HAVE_POPPLER_CORE_IF
 
 // Use poppler-core interface
 std::string poppler_core::destname (void)
 {
-  std::stringstream ss;
   Catalog *catalog = doc->getCatalog ();
+  name_map.clear ();
 
   if (catalog && catalog->isOk ())
     {
       int len = catalog->numDestNameTree ();
       for (int i=0; i<len; ++i)
         {
-          ss << build_destname (catalog->getDestNameTreeName (i),
-                                catalog->getDestNameTreeDest (i));
+          add_destname (catalog->getDestNameTreeName (i),
+                        catalog->getDestNameTreeDest (i));
         }
 
       len = catalog->numDests ();
       for (int i=0; i<len; ++i)
         {
-          ss << build_destname (catalog->getDestsName (i),
-                                catalog->getDestsDest (i));
+          add_destname (catalog->getDestsName (i),
+                        catalog->getDestsDest (i));
         }
     }
   else
-    ss << "% Catalog is not OK" << std::endl;
+    std::cerr << "Catalog is not OK" << std::endl;
 
-  return ss.str ();
+  return build_destnames ();
 }
 
 #else  // HAVE_POPPLER_CORE_IF
@@ -182,8 +205,8 @@ std::string poppler_core::destname (void)
 // Use poppler-core private access
 std::string poppler_core::destname (void)
 {
-  std::stringstream ss;
   Catalog *catalog = doc->getCatalog ();
+  name_map.clear ();
 
   if (catalog && catalog->isOk ())
     {
@@ -193,12 +216,8 @@ std::string poppler_core::destname (void)
           int len = destnametree->numEntries ();
           for (int i=0; i<len; ++i)
             {
-              ss << build_destname (destnametree->getName (i));
+              add_destname (destnametree->getName (i));
             }
-        }
-      else
-        {
-          ss << "% NameTree is null" << std::endl;
         }
 
       Object *obj = catalog->getDests ();
@@ -207,14 +226,14 @@ std::string poppler_core::destname (void)
           int len = obj->dictGetLength ();
           for (int i=0; i<len; ++i)
             {
-              ss << build_destname (obj->dictGetKey (i));
+              add_destname (obj->dictGetKey (i));
             }
         }
     }
   else
-    ss << "% Catalog is not OK" << std::endl;
+    std::cerr << "Catalog is not OK" << std::endl;
 
-  return ss.str ();
+  return build_destnames ();
 }
 
 #endif  // HAVE_POPPLER_CORE_IF

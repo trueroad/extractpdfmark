@@ -19,7 +19,9 @@
 #define INCLUDE_GUARD_POPPLER_CORE_HH
 
 #include <string>
+#include <map>
 #include <memory>
+#include <Link.h>
 
 #include "../output-pdfmark.hh"
 
@@ -37,10 +39,14 @@ public:
 
 private:
   std::string build_destname (const std::string &name, LinkDest *link_dest);
-  std::string build_destname (GooString *name, LinkDest *link_dest);
-  std::string build_destname (GooString *name);
-  std::string build_destname (const char *name);
+  std::string build_destnames (void);
+  void add_destname (const std::string &name, LinkDest *link_dest);
+  void add_destname (GooString *name, LinkDest *link_dest);
+  void add_destname (GooString *name);
+  void add_destname (const char *name);
+
   std::unique_ptr<PDFDoc> doc;
+  std::map<std::string, LinkDest> name_map;
 };
 
 #endif // INCLUDE_GUARD_POPPLER_CORE_HH
