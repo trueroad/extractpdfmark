@@ -88,8 +88,8 @@ std::string poppler_core::build_destname (const std::string &name,
         {
         case destXYZ:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/XYZ " << link_dest->getLeft ()
             << " " << link_dest->getTop ()
             << " " << link_dest->getZoom ()
@@ -97,28 +97,28 @@ std::string poppler_core::build_destname (const std::string &name,
           break;
         case destFit:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/Fit] /DEST pdfmark" << std::endl;
           break;
         case destFitH:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/FitH " << link_dest->getTop ()
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFitV:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/FitV " << link_dest->getLeft ()
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFitR:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/FitR " << link_dest->getLeft ()
             << " " << link_dest->getBottom ()
             << " " << link_dest->getRight ()
@@ -127,21 +127,21 @@ std::string poppler_core::build_destname (const std::string &name,
           break;
         case destFitB:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/FitB] /DEST pdfmark" << std::endl;
           break;
         case destFitBH:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/FitBH " << link_dest->getTop ()
             << "] /DEST pdfmark" << std::endl;
           break;
         case destFitBV:
           ss
-            << "[ /Dest (" << encode_name (name)
-            << ") /Page " << pagenum
+            << "[ /Dest " << encode_name (name)
+            << " /Page " << pagenum
             << " /View [/FitBV " << link_dest->getLeft ()
             << "] /DEST pdfmark" << std::endl;
           break;

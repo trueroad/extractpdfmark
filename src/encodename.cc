@@ -24,7 +24,7 @@
 #include "utf16.hh"
 #include "utf8.hh"
 
-std::string output_pdfmark::encode_name (const std::string &name)
+std::string output_pdfmark::encode (const std::string &name)
 {
   bool bflag = is_utf16 (name) || !is_utf8 (name);
   std::stringstream encoded;
@@ -47,4 +47,9 @@ std::string output_pdfmark::encode_name (const std::string &name)
         }
     }
   return encoded.str ();
+}
+
+std::string output_pdfmark::encode_name (const std::string &name)
+{
+  return "(" + encode (name) + ")";
 }
