@@ -34,6 +34,7 @@ public:
   virtual std::string destname (void) = 0;
 
   std::string encode_literal (const std::string &name) const;
+  std::string encode_hexadecimal (const std::string &name) const;
   std::string encode_name (const std::string &name) const;
 
   void add_options (cmdlineparse::parser *cmd);

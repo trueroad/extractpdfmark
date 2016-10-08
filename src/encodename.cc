@@ -47,7 +47,22 @@ std::string output_pdfmark::encode_literal (const std::string &name) const
   return encoded.str ();
 }
 
+std::string output_pdfmark::encode_hexadecimal (const std::string &name) const
+{
+  std::stringstream encoded;
+
+  encoded << std::hex << std::setw (2) << std::setfill ('0');
+  for (auto c: name)
+    {
+      encoded << static_cast<int>(static_cast<unsigned char>(c));
+    }
+
+  return encoded.str ();
+}
+
 std::string output_pdfmark::encode_name (const std::string &name) const
 {
+  if (hexadecimal)
+    return "<" + encode_hexadecimal (name) + ">";
   return "(" + encode_literal (name) + ")";
 }
