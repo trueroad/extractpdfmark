@@ -36,8 +36,6 @@ std::string poppler_glib::pagemode (void)
   switch (poppler_document_get_page_mode (document))
     {
     case POPPLER_PAGE_MODE_UNSET:
-      ss << "% PageMode unset" << std::endl;
-      break;
     case POPPLER_PAGE_MODE_NONE:
       ss << "[ /PageMode /UseNone /DOCVIEW pdfmark" << std::endl;
       break;

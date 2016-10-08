@@ -31,10 +31,6 @@ std::string poppler_core::pagemode (void)
     {
       switch (catalog->getPageMode ())
         {
-        case Catalog::pageModeNone:
-          ss
-            << "[ /PageMode /UseNone /DOCVIEW pdfmark" << std::endl;
-          break;
         case Catalog::pageModeOutlines:
           ss
             << "[ /PageMode /UseOutlines /DOCVIEW pdfmark" << std::endl;
@@ -47,8 +43,16 @@ std::string poppler_core::pagemode (void)
           ss
             << "[ /PageMode /FullScreen /DOCVIEW pdfmark" << std::endl;
           break;
+        case Catalog::pageModeOC:
+          ss << "% pageModeOC" << std::endl;
+          break;
+        case Catalog::pageModeAttach:
+          ss << "% pageModeAttach" << std::endl;
+          break;
+        case Catalog::pageModeNone:
         default:
-          ss << "% PageMode unknown" << std::endl;
+          ss
+            << "[ /PageMode /UseNone /DOCVIEW pdfmark" << std::endl;
           break;
         }
     }
