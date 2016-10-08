@@ -23,10 +23,20 @@
 void output_pdfmark::set_style (std::string style)
 {
   if (style == "literal")
-    return;
+    {
+      hexadecimal = false;
+      nameobject = false;
+    }
   else if (style == "hex")
-    hexadecimal = true;
+    {
+      hexadecimal = true;
+      nameobject = false;
+    }
   else if (style == "name")
-    nameobj = true;
-  std::cerr << "unknown --style argument: " << style << std::endl;
+    {
+      hexadecimal = false;
+      nameobject = true;
+    }
+  else
+    std::cerr << "unknown --style argument: " << style << std::endl;
 }

@@ -48,7 +48,7 @@ private:
 
   bool escape = false;
   bool hexadecimal = false;
-  bool nameoject = false;
+  bool nameobject = false;
 };
 
 std::unique_ptr<output_pdfmark> create_output_pdfmark (void);
