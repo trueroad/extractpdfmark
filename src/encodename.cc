@@ -26,7 +26,7 @@
 
 std::string output_pdfmark::encode (const std::string &name)
 {
-  bool bflag = is_utf16 (name) || !is_utf8 (name);
+  bool bflag = escape || is_utf16 (name) || !is_utf8 (name);
   std::stringstream encoded;
 
   for (auto c: name)
