@@ -60,9 +60,38 @@ std::string output_pdfmark::encode_hexadecimal (const std::string &name) const
   return encoded.str ();
 }
 
+std::string output_pdfmark::encode_nameobject (const std::string &name) const
+{
+  std::stringstream encoded;
+
+  for (auto c: name)
+    {
+      if (escape ||
+          static_cast<unsigned char>(c) < 0x21 ||
+          static_cast<unsigned char>(c) > 0x7e ||
+          c == '(' || c == ')' || c == '<' || c == '>' ||
+          c == '[' || c == ']' || c == '{' || c == '}' ||
+          c == '/' || c == '%' || c == '#')
+        {
+          encoded
+            << '#'
+            << std::hex << std::uppercase
+            << std::setw (2) << std::setfill ('0')
+            << static_cast<int>(static_cast<unsigned char>(c));
+        }
+      else
+        {
+          encoded << c;
+        }
+    }
+  return encoded.str ();
+}
+
 std::string output_pdfmark::encode_name (const std::string &name) const
 {
   if (hexadecimal)
     return "<" + encode_hexadecimal (name) + ">";
+  if (nameobject)
+    return "/" + encode_nameobject (name);
   return "(" + encode_literal (name) + ")";
 }
