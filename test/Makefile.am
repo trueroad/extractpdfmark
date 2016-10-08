@@ -22,6 +22,10 @@ TESTPDFS += namedict.pdf
 endif
 # Expected PDFmark for expected pdf test
 TESTMARKS = $(TESTPDFS:.pdf=-expected.pdfmark) \
+	destonly-expected-literal-escape.pdfmark \
+	destonly-expected-hex.pdfmark \
+	destonly-expected-name.pdfmark \
+	destonly-expected-name-escape.pdfmark \
 	utf8-expected-literal-escape.pdfmark \
 	utf8-expected-hex.pdfmark \
 	utf8-expected-name.pdfmark \
@@ -31,7 +35,14 @@ TESTMARKS = $(TESTPDFS:.pdf=-expected.pdfmark) \
 	special-chars-expected-name.pdfmark \
 	special-chars-expected-name-escape.pdfmark
 # Extracted PDFmark for round test
-TESTROUNDS = $(TESTPDFS:.pdf=-round.ps)
+TESTROUNDS = $(TESTPDFS:.pdf=-round.ps) \
+	destonly-round-literal-escape.ps \
+	destonly-round-hex.ps \
+	destonly-round-name.ps \
+	utf8-round-literal-escape.ps \
+	utf8-round-hex.ps \
+	special-chars-round-literal-escape.ps \
+	special-chars-round-hex.ps
 
 # TESTROUNDS should not be contained.
 EXTRA_DIST = test-round.sh test-expected-pdfmark.sh addnamedict.ps \
@@ -39,8 +50,20 @@ EXTRA_DIST = test-round.sh test-expected-pdfmark.sh addnamedict.ps \
 
 # For `make clean'
 CLEANFILES = $(TESTMARKS:-expected.pdfmark=-expected-test.pdfmark) \
+	$(TESTMARKS:-expected-literal-escape.pdfmark=-expected-literal-escape-test.pdfmark) \
+	$(TESTMARKS:-expected-hex.pdfmark=-expected-hex-test.pdfmark) \
+	$(TESTMARKS:-expected-name.pdfmark=-expected-name-test.pdfmark) \
+	$(TESTMARKS:-expected-name-escape.pdfmark=-expected-name-escape-test.pdfmark) \
 	$(TESTROUNDS:-round.ps=-round-test.pdf) \
-	$(TESTROUNDS:-round.ps=-round-test.ps)
+	$(TESTROUNDS:-round.ps=-round-test.ps) \
+	$(TESTROUNDS:-round-literal-escape.ps=-round-literal-escape-test.pdf) \
+	$(TESTROUNDS:-round-literal-escape.ps=-round-literal-escape-test.ps) \
+	$(TESTROUNDS:-round-hex.ps=-round-hex-test.pdf) \
+	$(TESTROUNDS:-round-hex.ps=-round-hex-test.ps) \
+	$(TESTROUNDS:-round-name.ps=-round-name-test.pdf) \
+	$(TESTROUNDS:-round-name.ps=-round-name-test.ps) \
+	$(TESTROUNDS:-round-name-escape.ps=-round-name-escape-test.pdf) \
+	$(TESTROUNDS:-round-name-escape.ps=-round-name-escape-test.ps)
 
 # For name object (PDF 1.1) handling test
 # PDF 1.2+ uses name tree intead of name object.
@@ -88,3 +111,23 @@ namedict.pdf: nodest.pdf addnamedict.ps
 # Tarball should not contain them for checking building environment.
 %-round.ps: %.pdf
 	$(top_builddir)/src/extractpdfmark -o $@ $<
+
+# Generate extracted PDFmark with hexadecimal style
+# Tarball should not contain them for checking building environment.
+%-round-hex.ps: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=hex -o $@ $<
+
+# Generate extracted PDFmark with literal style full escaped
+# Tarball should not contain them for checking building environment.
+%-round-literal-escape.ps: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=literal --escape  -o $@ $<
+
+# Generate extracted PDFmark with name style
+# Tarball should not contain them for checking building environment.
+%-round-name.ps: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=name -o $@ $<
+
+# Generate extracted PDFmark with name style full escaped
+# Tarball should not contain them for checking building environment.
+%-round-name-escape.ps: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=name --escape  -o $@ $<
