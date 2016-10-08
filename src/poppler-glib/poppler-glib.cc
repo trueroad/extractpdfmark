@@ -89,11 +89,6 @@ bool poppler_glib::open (const std::string &pdf_filename)
   return true;
 }
 
-std::string poppler_glib::pagemode (void)
-{
-  return "";
-}
-
 std::string poppler_glib::destname (void)
 {
   return "";
