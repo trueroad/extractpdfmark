@@ -19,6 +19,7 @@
 #define INCLUDE_GUARD_POPPLER_GLIB_HH
 
 #include <string>
+#include <poppler.h>
 
 #include "../output-pdfmark.hh"
 
@@ -28,6 +29,14 @@ public:
   bool open (const std::string &pdf_filename);
   std::string pagemode (void);
   std::string destname (void);
+
+  ~poppler_glib ()
+  {
+    g_clear_object (&document);
+  }
+
+private:
+  PopplerDocument *document = nullptr;
 };
 
 #endif // INCLUDE_GUARD_POPPLER_GLIB_HH
