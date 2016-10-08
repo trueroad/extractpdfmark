@@ -20,6 +20,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <utility>
 #include <poppler.h>
 
 #include "poppler-glib.hh"
@@ -37,7 +38,82 @@ gboolean poppler_glib::walk_entry (gpointer key,
 
 bool poppler_glib::walk (GBytes *name, PopplerDest *dest)
 {
-  std::cerr << "walk" << std::endl;
+  std::string n (static_cast<const char*> (g_bytes_get_data (name, nullptr)),
+                 static_cast<std::string::size_type> (g_bytes_get_size (name)));
+  std::stringstream ss;
+  if (dest)
+    {
+      switch (dest->type)
+        {
+        case POPPLER_DEST_XYZ:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/XYZ " << dest->left
+            << " " << dest->top
+            << " " << dest->zoom
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case POPPLER_DEST_FIT:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/Fit] /DEST pdfmark" << std::endl;
+          break;
+        case POPPLER_DEST_FITH:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/FitH " << dest->top
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case POPPLER_DEST_FITV:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/FitV " << dest->left
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case POPPLER_DEST_FITR:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/FitR " << dest->left
+            << " " << dest->bottom
+            << " " << dest->right
+            << " " << dest->top
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case POPPLER_DEST_FITB:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/FitB] /DEST pdfmark" << std::endl;
+          break;
+        case POPPLER_DEST_FITBH:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/FitBH " << dest->top
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        case POPPLER_DEST_FITBV:
+          ss
+            << "[ /Dest " << encode_name (n)
+            << " /Page " << dest->page_num
+            << " /View [/FitBV " << dest->left
+            << "] /DEST pdfmark" << std::endl;
+          break;
+        default:
+          ss << "%  dest type is unknown." << std::endl;
+        }
+    }
+  else
+    {
+      ss << "%  dest is null." << std::endl;
+    }
+
+  dests += ss.str ();
 
   // return value is used for GTraverseFunc ()'s return value.
   // false means to continue the travarsal (true means to stop)
@@ -48,8 +124,11 @@ std::string poppler_glib::destname (void)
 {
   std::unique_ptr<GTree, decltype (&g_tree_destroy)>
     tree {poppler_document_build_dests_tree (document), g_tree_destroy};
+  dests.clear ();
 
   g_tree_foreach (tree.get (), walk_entry, this);
 
-  return "";
+  std::string tmp {std::move(dests)};
+  dests.clear ();
+  return tmp;
 }

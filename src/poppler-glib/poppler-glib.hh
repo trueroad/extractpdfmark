@@ -42,6 +42,7 @@ private:
   bool walk (GBytes *name, PopplerDest *dest);
 
   PopplerDocument *document = nullptr;
+  std::string dests;
 };
 
 #endif // INCLUDE_GUARD_POPPLER_GLIB_HH
