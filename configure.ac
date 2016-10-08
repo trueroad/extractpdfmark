@@ -122,5 +122,6 @@ AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/poppler-core/Makefile
+                 src/poppler-glib/Makefile
                  test/Makefile])
 AC_OUTPUT

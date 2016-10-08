@@ -17,3 +17,10 @@ extractpdfmark_LDADD += -lextractpdfmark-poppler-core $(POPPLER_LIBS)
 extractpdfmark_LDFLAGS += -L./poppler-core
 extractpdfmark_DEPENDENCIES += ./poppler-core/libextractpdfmark-poppler-core.a
 endif
+
+if USE_POPPLER_GLIB
+SUBDIRS += poppler-glib
+extractpdfmark_LDADD += -lextractpdfmark-poppler-glib $(POPPLER_GLIB_LIBS)
+extractpdfmark_LDFLAGS += -L./poppler-glib
+extractpdfmark_DEPENDENCIES += ./poppler-glib/libextractpdfmark-poppler-glib.a
+endif
