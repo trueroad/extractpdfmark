@@ -63,11 +63,14 @@ AS_IF([test ! -e ${srcdir}/test/desttype-expected.pdfmark],
 PKG_PROG_PKG_CONFIG
 
 AC_ARG_WITH([poppler],
-             AS_HELP_STRING([--with-poppler=@<:@auto|core|core-private@:>@],
+             AS_HELP_STRING([--with-poppler=@<:@auto|glib|core|core-private@:>@],
                             [Poppler I/F (default: auto)]),
                             ,
                             [with_poppler=auto])
 AS_CASE(["$with_poppler"],
+        ["glib"],
+            [AC_MSG_NOTICE([--with-poppler=glib requires poppler >= 0.48.0])
+             PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.48.0])],
         ["core"],
             [AC_MSG_NOTICE([--with-poppler=core requires poppler >= 0.48.0])
              PKG_CHECK_MODULES([POPPLER], [poppler >= 0.48.0])],
@@ -76,16 +79,25 @@ AS_CASE(["$with_poppler"],
                  [--with-poppler=core-private requires poppler >= 0.13.3])
              PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])],
         ["auto"],
-            [AC_MSG_NOTICE([--with-poppler=auto])
-             AC_MSG_NOTICE([trying for core (poppler >= 0.48.0)])
+            [AC_MSG_NOTICE([selecting for --with-poppler=auto])
+             AC_MSG_NOTICE([ trying for glib (experiment)])
              PKG_CHECK_MODULES(
-                 [POPPLER], [poppler >= 0.48.0],
-                 [with_poppler="core"],
-                 [AC_MSG_NOTICE([trying for core-private (poppler >= 0.13.3)])
-                  PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3],
-                      [with_poppler="core-private"])])],
+                 [POPPLER_GLIB], [poppler-glib >= 99.99.99],
+                 [with_poppler="glib"],
+                 [AC_MSG_NOTICE([ trying for core (poppler >= 0.48.0)])
+                  PKG_CHECK_MODULES(
+                      [POPPLER], [poppler >= 0.48.0],
+                      [with_poppler="core"],
+                      [AC_MSG_NOTICE(
+                           [ trying for core-private (poppler >= 0.13.3)])
+                       PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3],
+                           [with_poppler="core-private"])])])]
+             AC_MSG_NOTICE([use --with-poppler=$with_poppler]),
         [AC_MSG_ERROR([unrecognized --with-poppler argument: $with_poppler])])
 AS_CASE(["$with_poppler"],
+        ["glib"],
+            [POPPLER_IF="poppler-glib"
+             use_library="glib"],
         ["core"],
             [POPPLER_IF="poppler-core"
              use_library="core"
@@ -96,6 +108,7 @@ AS_CASE(["$with_poppler"],
              use_library="core"],
         [AC_MSG_ERROR([programming error])])
 AM_CONDITIONAL([USE_POPPLER_CORE], [test $use_library = core])
+AM_CONDITIONAL([USE_POPPLER_GLIB], [test $use_library = glib])
 AC_DEFINE_UNQUOTED([PACKAGE_STRING], ["$PACKAGE_STRING (with $POPPLER_IF)"],
     [Define to the full name and version, method of this package.])
 
