@@ -17,12 +17,12 @@
 
 #include "config.h"
 
+#include "poppler-core.hh"
+
 #include <iostream>
 #include <memory>
 #include <PDFDoc.h>
 #include <PDFDocFactory.h>
-
-#include "poppler-core.hh"
 
 std::unique_ptr<output_pdfmark> create_output_pdfmark (void)
 {
@@ -31,11 +31,11 @@ std::unique_ptr<output_pdfmark> create_output_pdfmark (void)
 
 bool poppler_core::open (const std::string &pdf_filename)
 {
-  auto fileName = std::unique_ptr<GooString>
-    (new GooString {pdf_filename.c_str (),
-        static_cast<int> (pdf_filename.length ())});
+  std::unique_ptr<GooString> fileName
+  {new GooString {pdf_filename.c_str (),
+        static_cast<int> (pdf_filename.length ())}};
   doc = std::unique_ptr<PDFDoc>
-    (PDFDocFactory ().createPDFDoc (*fileName, NULL, NULL));
+    {PDFDocFactory ().createPDFDoc (*fileName, NULL, NULL)};
 
   if (!doc)
     {

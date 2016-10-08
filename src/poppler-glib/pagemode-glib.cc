@@ -17,11 +17,12 @@
 
 #include "config.h"
 
+#include "poppler-glib.hh"
+
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <poppler.h>
-
-#include "poppler-glib.hh"
 
 std::string poppler_glib::pagemode (void)
 {

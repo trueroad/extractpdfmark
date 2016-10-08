@@ -17,12 +17,12 @@
 
 #include "config.h"
 
+#include "poppler-glib.hh"
+
 #include <iostream>
 #include <memory>
 #include <string>
 #include <poppler.h>
-
-#include "poppler-glib.hh"
 
 std::unique_ptr<output_pdfmark> create_output_pdfmark (void)
 {
@@ -49,7 +49,7 @@ namespace
     GError *error {nullptr};
     std::unique_ptr<gchar, decltype (&g_free)> uri
     {g_filename_to_uri (abs_filename.c_str (), nullptr, &error), g_free};
-    if (!uri.get ())
+    if (!uri)
       {
         std::cerr << "g_filename_to_uri failed: " << abs_filename;
         if (error)
@@ -79,12 +79,12 @@ bool poppler_glib::open (const std::string &pdf_filename)
         {
           std::cerr << ": " << error->message << std::endl;
           g_error_free (error);
-          return false;
         }
       else
         {
           std::cerr << std::endl;
         }
+      return false;
     }
   return true;
 }

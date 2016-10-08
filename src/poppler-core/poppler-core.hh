@@ -18,12 +18,14 @@
 #ifndef INCLUDE_GUARD_POPPLER_CORE_HH
 #define INCLUDE_GUARD_POPPLER_CORE_HH
 
-#include <string>
 #include <map>
 #include <memory>
+#include <string>
 #include <Link.h>
 
-#include "../output-pdfmark.hh"
+#include "output-pdfmark.hh"
+
+class PDFDoc;
 
 class poppler_core : public output_pdfmark
 {
@@ -31,11 +33,6 @@ public:
   bool open (const std::string &pdf_filename);
   std::string pagemode (void);
   std::string destname (void);
-
-  poppler_core () :
-    doc {nullptr}
-  {
-  }
 
 private:
   std::string build_destname (const std::string &name, LinkDest *link_dest);

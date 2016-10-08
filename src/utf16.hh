@@ -18,6 +18,8 @@
 #ifndef INCLUDE_GUARD_UTF16_HH
 #define INCLUDE_GUARD_UTF16_HH
 
+#include <string>
+
 bool is_utf16 (const std::string &str);
 
 #endif // INCLUDE_GUARD_UTF16_HH

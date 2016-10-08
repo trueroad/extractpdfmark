@@ -17,9 +17,9 @@
 
 #include "config.h"
 
-#include <string>
-
 #include "utf16.hh"
+
+#include <string>
 
 bool is_utf16 (const std::string &str)
 {

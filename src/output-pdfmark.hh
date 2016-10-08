@@ -18,8 +18,8 @@
 #ifndef INCLUDE_GUARD_OUTPUT_PDFMARK_HH
 #define INCLUDE_GUARD_OUTPUT_PDFMARK_HH
 
-#include <string>
 #include <memory>
+#include <string>
 
 namespace cmdlineparse
 {
@@ -33,13 +33,13 @@ public:
   virtual std::string pagemode (void) = 0;
   virtual std::string destname (void) = 0;
 
+  void add_options (cmdlineparse::parser *cmd);
+  void parse_options (void);
+
   std::string encode_literal (const std::string &name) const;
   std::string encode_hexadecimal (const std::string &name) const;
   std::string encode_nameobject (const std::string &name) const;
   std::string encode_name (const std::string &name) const;
-
-  void add_options (cmdlineparse::parser *cmd);
-  void parse_options (void);
 
   output_pdfmark () = default;
   virtual ~output_pdfmark () = default;

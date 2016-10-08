@@ -17,13 +17,12 @@
 
 #include "config.h"
 
-#include <iostream>
-#include <string>
+#include "poppler-glib.hh"
+
 #include <sstream>
+#include <string>
 #include <utility>
 #include <poppler.h>
-
-#include "poppler-glib.hh"
 
 gboolean poppler_glib::walk_entry (gpointer key,
                                    gpointer value,
@@ -38,8 +37,8 @@ gboolean poppler_glib::walk_entry (gpointer key,
 
 bool poppler_glib::walk (GBytes *name, PopplerDest *dest)
 {
-  std::string n (static_cast<const char*> (g_bytes_get_data (name, nullptr)),
-                 static_cast<std::string::size_type> (g_bytes_get_size (name)));
+  std::string n {static_cast<const char*> (g_bytes_get_data (name, nullptr)),
+      static_cast<std::string::size_type> (g_bytes_get_size (name))};
   std::stringstream ss;
   if (dest)
     {
@@ -106,6 +105,7 @@ bool poppler_glib::walk (GBytes *name, PopplerDest *dest)
           break;
         default:
           ss << "%  dest type is unknown." << std::endl;
+          break;
         }
     }
   else

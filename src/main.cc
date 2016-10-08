@@ -17,8 +17,8 @@
 
 #include "config.h"
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 #include "cmdlineparse.hh"
 #include "output-pdfmark.hh"
@@ -26,7 +26,7 @@
 int main (int argc, char *argv[])
 {
   cmdlineparse::parser cmd;
-  auto opdfmark = create_output_pdfmark ();
+  auto opdfmark {create_output_pdfmark ()};
   std::string output_filename;
 
   cmd.add_default ();

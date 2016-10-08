@@ -15,11 +15,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
+#include "config.h"
+
+#include "output-pdfmark.hh"
+
 #include <iostream>
 #include <string>
 
 #include "cmdlineparse.hh"
-#include "output-pdfmark.hh"
 
 void output_pdfmark::add_options (cmdlineparse::parser *cmd)
 {

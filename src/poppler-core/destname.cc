@@ -17,14 +17,14 @@
 
 #include "config.h"
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <map>
-#include <PDFDoc.h>
-#include <Link.h>
-
 #include "poppler-core.hh"
+
+#include <iostream>
+#include <map>
+#include <sstream>
+#include <string>
+#include <Link.h>
+#include <PDFDoc.h>
 
 #ifndef HAVE_POPPLER_CORE_IF
 #include "destname-private.hh"
@@ -46,14 +46,14 @@ inline void poppler_core::add_destname (GooString *name,
 inline void poppler_core::add_destname (GooString *name)
 {
   std::string str = goo_to_string (name);
-  auto link_dest = std::unique_ptr<LinkDest> (doc->findDest (name));
+  std::unique_ptr<LinkDest> link_dest {doc->findDest (name)};
   add_destname (str, link_dest.get ());
 }
 
 inline void poppler_core::add_destname (const char *name)
 {
   GooString goo {name};
-  auto link_dest = std::unique_ptr<LinkDest> (doc->findDest (&goo));
+  std::unique_ptr<LinkDest> link_dest {doc->findDest (&goo)};
   add_destname (name, link_dest.get ());
 }
 

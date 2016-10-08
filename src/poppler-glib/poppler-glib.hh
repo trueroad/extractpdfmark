@@ -21,7 +21,7 @@
 #include <string>
 #include <poppler.h>
 
-#include "../output-pdfmark.hh"
+#include "output-pdfmark.hh"
 
 class poppler_glib : public output_pdfmark
 {

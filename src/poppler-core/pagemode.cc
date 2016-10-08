@@ -17,10 +17,10 @@
 
 #include "config.h"
 
+#include "poppler-core.hh"
+
 #include <sstream>
 #include <PDFDoc.h>
-
-#include "poppler-core.hh"
 
 std::string poppler_core::pagemode (void)
 {
@@ -32,16 +32,13 @@ std::string poppler_core::pagemode (void)
       switch (catalog->getPageMode ())
         {
         case Catalog::pageModeOutlines:
-          ss
-            << "[ /PageMode /UseOutlines /DOCVIEW pdfmark" << std::endl;
+          ss << "[ /PageMode /UseOutlines /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeThumbs:
-          ss
-            << "[ /PageMode /UseThumbs /DOCVIEW pdfmark" << std::endl;
+          ss << "[ /PageMode /UseThumbs /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeFullScreen:
-          ss
-            << "[ /PageMode /FullScreen /DOCVIEW pdfmark" << std::endl;
+          ss << "[ /PageMode /FullScreen /DOCVIEW pdfmark" << std::endl;
           break;
         case Catalog::pageModeOC:
           ss << "% pageModeOC" << std::endl;
@@ -51,8 +48,7 @@ std::string poppler_core::pagemode (void)
           break;
         case Catalog::pageModeNone:
         default:
-          ss
-            << "[ /PageMode /UseNone /DOCVIEW pdfmark" << std::endl;
+          ss << "[ /PageMode /UseNone /DOCVIEW pdfmark" << std::endl;
           break;
         }
     }

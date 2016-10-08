@@ -15,16 +15,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <string>
-#include <codecvt>
-#include <cwchar>
-
 #include "utf8.hh"
+
+#include <cwchar>
+#include <codecvt>
+#include <string>
 
 bool is_utf8 (const std::string &str)
 {
   std::codecvt_utf8<char32_t> cvt;
-  auto mb = std::mbstate_t ();
+  auto mb {std::mbstate_t ()};
   return (cvt.length (mb, &str.front (), &str.front () + str.length (),
                       std::string::npos)
           == str.length ());

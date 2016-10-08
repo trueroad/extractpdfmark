@@ -17,10 +17,12 @@
 
 #include "config.h"
 
-#include <sstream>
-#include <iomanip>
-
 #include "output-pdfmark.hh"
+
+#include <iomanip>
+#include <sstream>
+#include <string>
+
 #include "utf16.hh"
 #include "utf8.hh"
 
