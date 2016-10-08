@@ -36,6 +36,11 @@ public:
   }
 
 private:
+  static gboolean walk_entry (gpointer key,
+                              gpointer value,
+                              gpointer user_data);
+  bool walk (GBytes *name, PopplerDest *dest);
+
   PopplerDocument *document = nullptr;
 };
 
