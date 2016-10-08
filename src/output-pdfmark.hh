@@ -31,6 +31,7 @@ public:
   std::string encode_literal (const std::string &name) const;
   std::string encode_name (const std::string &name) const;
 
+  void set_style (std::string style);
   void set_escape (bool flag) noexcept
   {
     escape = flag;
@@ -45,7 +46,9 @@ private:
   output_pdfmark& operator = (output_pdfmark const&) = delete;
   output_pdfmark& operator = (output_pdfmark&&) = delete;
 
-  bool escape;
+  bool escape = false;
+  bool hexadecimal = false;
+  bool nameoject = false;
 };
 
 std::unique_ptr<output_pdfmark> create_output_pdfmark (void);
