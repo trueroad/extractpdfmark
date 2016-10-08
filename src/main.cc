@@ -26,23 +26,15 @@
 int main (int argc, char *argv[])
 {
   cmdlineparse::parser cmd;
+  auto opdfmark = create_output_pdfmark ();
   std::string output_filename;
-  std::string style;
-  bool escape;
 
   cmd.add_default ();
   cmd.add_string ('o', "output", &output_filename, "",
                   "    Output filename\n"
                   "    (Default: standard output)",
                   "OUTPUT.ps");
-  cmd.add_string (0, "style", &style, "literal",
-                  "    Name style\n"
-                  "      literal: literal strings\n"
-                  "      hex:     hexadecimal strings\n"
-                  "      name:    name object",
-                  "STYLE");
-  cmd.add_flag (0, "escape", &escape,
-                "    Escape all characters");
+  opdfmark->add_options (&cmd);
 
   cmd.set_usage_unamed_opts ("INPUT.pdf");
 
@@ -71,12 +63,10 @@ int main (int argc, char *argv[])
   *pout << "% " << PACKAGE_STRING << std::endl
         << "% " << PACKAGE_URL << std::endl << std::endl;
 
-  auto opdfmark = create_output_pdfmark ();
   if (!opdfmark->open (cmd.get_unamed_args ().at (0)))
     return 1;
 
-  opdfmark->set_style (style);
-  opdfmark->set_escape (escape);
+  opdfmark->parse_options ();
 
   *pout << opdfmark->pagemode ();
   *pout << opdfmark->destname ();

@@ -21,6 +21,11 @@
 #include <string>
 #include <memory>
 
+namespace cmdlineparse
+{
+  class parser;
+}
+
 class output_pdfmark
 {
 public:
@@ -31,11 +36,8 @@ public:
   std::string encode_literal (const std::string &name) const;
   std::string encode_name (const std::string &name) const;
 
-  void set_style (std::string style);
-  void set_escape (bool flag) noexcept
-  {
-    escape = flag;
-  }
+  void add_options (cmdlineparse::parser *cmd);
+  void parse_options (void);
 
   output_pdfmark () = default;
   virtual ~output_pdfmark () = default;
@@ -46,6 +48,7 @@ private:
   output_pdfmark& operator = (output_pdfmark const&) = delete;
   output_pdfmark& operator = (output_pdfmark&&) = delete;
 
+  std::string style;
   bool escape = false;
   bool hexadecimal = false;
   bool nameobject = false;

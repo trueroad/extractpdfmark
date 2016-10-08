@@ -18,9 +18,22 @@
 #include <iostream>
 #include <string>
 
+#include "cmdlineparse.hh"
 #include "output-pdfmark.hh"
 
-void output_pdfmark::set_style (std::string style)
+void output_pdfmark::add_options (cmdlineparse::parser *cmd)
+{
+  cmd->add_string (0, "style", &style, "literal",
+                   "    Name style\n"
+                   "      literal: literal strings\n"
+                   "      hex:     hexadecimal strings\n"
+                   "      name:    name object",
+                   "STYLE");
+  cmd->add_flag (0, "escape", &escape,
+                 "    Escape all characters");
+}
+
+void output_pdfmark::parse_options (void)
 {
   if (style == "literal")
     {
