@@ -28,8 +28,8 @@ public:
   virtual std::string pagemode (void) = 0;
   virtual std::string destname (void) = 0;
 
-  std::string encode (const std::string &name);
-  std::string encode_name (const std::string &name);
+  std::string encode (const std::string &name) const;
+  std::string encode_name (const std::string &name) const;
 
   void set_escape (bool flag) noexcept
   {
