@@ -21,7 +21,15 @@ if HAVE_GHOSTSCRIPT
 TESTPDFS += namedict.pdf
 endif
 # Expected PDFmark for expected pdf test
-TESTMARKS = $(TESTPDFS:.pdf=-expected.pdfmark)
+TESTMARKS = $(TESTPDFS:.pdf=-expected.pdfmark) \
+	utf8-expected-literal-escape.pdfmark \
+	utf8-expected-hex.pdfmark \
+	utf8-expected-name.pdfmark \
+	utf8-expected-name-escape.pdfmark \
+	special-chars-expected-literal-escape.pdfmark \
+	special-chars-expected-hex.pdfmark \
+	special-chars-expected-name.pdfmark \
+	special-chars-expected-name-escape.pdfmark
 # Extracted PDFmark for round test
 TESTROUNDS = $(TESTPDFS:.pdf=-round.ps)
 
@@ -50,6 +58,30 @@ namedict.pdf: nodest.pdf addnamedict.ps
 # Tarball should contain them for checking outputs.
 %-expected.pdfmark: %.pdf
 	$(top_builddir)/src/extractpdfmark $< | \
+		$(GREP) -v "^%\|^$$" > $@
+
+# Generate expected PDFmark with hexadecimal style
+# Tarball should contain them for checking outputs.
+%-expected-hex.pdfmark: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=hex $< | \
+		$(GREP) -v "^%\|^$$" > $@
+
+# Generate expected PDFmark with literal style full escaped
+# Tarball should contain them for checking outputs.
+%-expected-literal-escape.pdfmark: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=literal --escape $< | \
+		$(GREP) -v "^%\|^$$" > $@
+
+# Generate expected PDFmark with name style
+# Tarball should contain them for checking outputs.
+%-expected-name.pdfmark: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=name $< | \
+		$(GREP) -v "^%\|^$$" > $@
+
+# Generate expected PDFmark with name style full escaped
+# Tarball should contain them for checking outputs.
+%-expected-name-escape.pdfmark: %.pdf
+	$(top_builddir)/src/extractpdfmark --style=name --escape $< | \
 		$(GREP) -v "^%\|^$$" > $@
 
 # Generate extracted PDFmark
