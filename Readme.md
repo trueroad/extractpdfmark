@@ -1,7 +1,43 @@
 # Extract PDFmark
 
-If you use Ghostscript for the PDF file size reduction,
-Ghostscript does not preserve page mode and named destinations etc.
+If you create a PDF document by something like TeX systems,
+many small PDFs as figures get included into the main PDF.
+It is common for each small PDF to use the same fonts.
+
+If the small PDFs are embedded subsetted fonts,
+the TeX system includes them as-is for the main PDF.
+As a result,
+the main PDF is embedded different subsets of the same duplicate font.
+It is not possible to remove the duplicates since they are different subsets.
+It enormously increases the main PDF file size.
+
+On the other hand,
+if the small PDFs are embedded full set fonts,
+the TeX system also includes all of them for the main PDF.
+The main PDF is embedded many duplicate fonts,
+but they are all same full set fonts.
+Therefore, Ghostscript can remove the duplicates.
+It can reduce the main PDF files size.
+
+Moreover,
+if the small PDFs are not embedded any fonts,
+the TeX system outputs the main PDF which lacks some fonts.
+In this case, Ghostscript can embed the necessary fonts.
+It can significantly reduce the required disk size.
+
+Either way,
+Ghostscript inputs the main PDF which is outputted by the TeX system,
+and outputs the final PDF.
+Unfortunately, during this process,
+Ghostscript does not preserve PDF page-mode and named-destinations etc.
+As a result,
+when you open the final PDF,
+it cannot realize the intended how the document shall be displayed.
+Remote PDF links also do not work.
+
+http://bugs.ghostscript.com/show_bug.cgi?id=696943
+
+http://bugs.ghostscript.com/show_bug.cgi?id=695760
 
 Extract PDFmark can extract page mode and named destinations
 as PDFmark from PDF.
