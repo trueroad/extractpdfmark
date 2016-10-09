@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([Extract PDFmark], [0.01], , [extractpdfname],
+AC_INIT([Extract PDFmark], [1.0.0], , [extractpdfname],
         [https://github.com/trueroad/extractpdfmark/])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([src/main.cc])
