@@ -1,5 +1,7 @@
 # Extract PDFmark
 
+https://github.com/trueroad/extractpdfmark
+
 If you create a PDF document by something like TeX systems,
 many small PDFs as figures get included into the main PDF.
 It is common for each small PDF to use the same fonts.
@@ -35,8 +37,7 @@ when you open the final PDF,
 it cannot realize the intended how the document shall be displayed.
 Remote PDF links also do not work.
 
-http://bugs.ghostscript.com/show_bug.cgi?id=696943
-
+http://bugs.ghostscript.com/show_bug.cgi?id=696943  
 http://bugs.ghostscript.com/show_bug.cgi?id=695760
 
 Extract PDFmark can extract page mode and named destinations
@@ -45,21 +46,21 @@ You can get the small PDF that has preserved them by using this tool.
 
 ## Required
 
-poppler 0.13.3+
+[poppler](https://poppler.freedesktop.org/) 0.13.3+
+with --enable-xpdf-headers option  
+(recommended poppler 0.48.0+)
 
-Autotools (autoheader, aclocal, automake, autoconf)
+## Build & install
 
-## Build
-
-    $ ./autogen.sh
     $ ./configure
     $ make
+	$ make install
 
 ## Usage
 
-    $ extractpdfmark foo.pdf > foo.pdfmark.ps
+    $ extractpdfmark TeX-System-Outputted.pdf > extracted-pdfmark.ps
     $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
-         -sOutputFile=foo.new.pdf foo.pdf foo.pdfmark.ps
+         -sOutputFile=final.pdf tex-system-outputted.pdf extracted-pdfmark.ps
 
 ## Licence
 

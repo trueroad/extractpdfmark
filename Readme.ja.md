@@ -1,6 +1,8 @@
 <!-- -*- coding: utf-8 -*- -->
 # Extract PDFmark
 
+https://github.com/trueroad/extractpdfmark
+
 TeX のようなシステムを使って PDF のドキュメントを作る場合、
 図としてたくさんの小さな PDF を用意して、
 メインの PDF に貼り付けるようなことが行われます。
@@ -33,8 +35,7 @@ Ghostscript へ TeX システムの出力したメイン PDF を入力し、
 そのため、最終的な PDF は意図したとおりに開かれなかったり、
 リモートからのリンクが機能しなくなったりしてしまいます。
 
-http://bugs.ghostscript.com/show_bug.cgi?id=696943
-
+http://bugs.ghostscript.com/show_bug.cgi?id=696943  
 http://bugs.ghostscript.com/show_bug.cgi?id=695760
 
 Extract PDFmark は PDF からページモードやリンクの宛先名を抽出し、
@@ -44,21 +45,21 @@ PDFmark として保存することができます。
 
 ## 必要なもの
 
-poppler 0.13.3 以降
+[poppler](https://poppler.freedesktop.org/) 0.13.3 以降
+--enable-xpdf-headers オプション付き  
+（推奨 poppler 0.48.0 以降）
 
-Autotools (autoheader, aclocal, automake, autoconf)
+## ビルド・インストール方法
 
-## ビルド方法
-
-    $ ./autogen.sh
     $ ./configure
     $ make
+	$ make install
 
 ## 使い方
 
-    $ extractpdfmark foo.pdf > foo.pdfmark.ps
+    $ extractpdfmark TeX出力.pdf > 抽出したPDFmark.ps
     $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
-         -sOutputFile=foo.new.pdf foo.pdf foo.pdfmark.ps
+         -sOutputFile=最終.pdf TeX出力.pdf 抽出したPDFmark.ps
 
 ## ライセンス
 
