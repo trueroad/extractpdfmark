@@ -58,9 +58,9 @@ with --enable-xpdf-headers option
 
 ## Usage
 
-    $ extractpdfmark TeX-System-Outputted.pdf > extracted-pdfmark.ps
+    $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
     $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
-         -sOutputFile=final.pdf tex-system-outputted.pdf extracted-pdfmark.ps
+         -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
 
 ## Licence
 
