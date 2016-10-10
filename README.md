@@ -1,6 +1,7 @@
 # Extract PDFmark
 
-https://github.com/trueroad/extractpdfmark
+https://github.com/trueroad/extractpdfmark  
+http://www.ctan.org/pkg/extractpdfmark
 
 If you create a PDF document by something like TeX systems,
 many small PDFs as figures get included into the main PDF.

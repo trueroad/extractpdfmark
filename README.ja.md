@@ -1,7 +1,8 @@
 <!-- -*- coding: utf-8 -*- -->
 # Extract PDFmark
 
-https://github.com/trueroad/extractpdfmark
+https://github.com/trueroad/extractpdfmark  
+http://www.ctan.org/pkg/extractpdfmark
 
 TeX のようなシステムを使って PDF のドキュメントを作る場合、
 図としてたくさんの小さな PDF を用意して、
