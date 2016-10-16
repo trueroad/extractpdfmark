@@ -20,6 +20,7 @@ AC_DEFINE_UNQUOTED([PACKAGE_LICENSE], ["$PACKAGE_LICENSE"],
 
 # Checks for programs.
 AC_PROG_CXX
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_PROG_RANLIB
 AC_PROG_GREP
 
@@ -125,7 +126,6 @@ AC_DEFINE_UNQUOTED([PACKAGE_STRING], ["$PACKAGE_STRING (with $POPPLER_IF)"],
     [Define to the full name and version, method of this package.])
 
 # Checks for header files.
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 AC_ARG_ENABLE([codecvt],
               [AS_HELP_STRING(
                   [--disable-codecvt],
