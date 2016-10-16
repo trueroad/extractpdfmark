@@ -113,9 +113,21 @@ AC_DEFINE_UNQUOTED([PACKAGE_STRING], ["$PACKAGE_STRING (with $POPPLER_IF)"],
     [Define to the full name and version, method of this package.])
 
 # Checks for header files.
+AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+AC_ARG_ENABLE([codecvt],
+              [AS_HELP_STRING(
+                  [--disable-codecvt],
+                  [disable codecvt for UTF-8 checking (default is enable)])],
+              ,
+              [enable_codecvt=yes])
+AS_IF([test "x$enable_codecvt" != xno],
+      [AC_LANG_PUSH([C++])
+       AC_CHECK_HEADERS([codecvt])
+       AC_LANG_POP])
+AS_IF([test "x$ac_cv_header_codecvt" = x],
+      [AC_MSG_WARN([Some `make check' will fail since codecvt is disabled.])])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
 
 # Checks for library functions.
 

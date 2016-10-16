@@ -15,11 +15,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Extract PDFmark.  If not, see <http://www.gnu.org/licenses/>.
 
+#include "config.h"
+
 #include "utf8.hh"
 
+#ifdef HAVE_CODECVT
 #include <cwchar>
 #include <codecvt>
+#endif
+
 #include <string>
+
+#ifdef HAVE_CODECVT
 
 bool is_utf8 (const std::string &str)
 {
@@ -29,3 +36,12 @@ bool is_utf8 (const std::string &str)
                       std::string::npos)
           == str.length ());
 }
+
+#else  // HAVE_CODECVT
+
+bool is_utf8 (const std::string &str)
+{
+  return false;
+}
+
+#endif  // HAVE_CODECVT
