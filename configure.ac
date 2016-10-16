@@ -29,6 +29,13 @@ AS_IF([test "x$DIFF" = x],
 AC_SUBST([DIFF])
 
 AC_PATH_PROG([GHOSTSCRIPT], [gs])
+AS_IF([test ! "x$GHOSTSCRIPT" = x],
+      [AC_MSG_CHECKING([for gs version ( >= 9.14 )])
+       gs_ver=`$GHOSTSCRIPT --version`
+       AX_COMPARE_VERSION([$gs_ver], [ge], [9.14],
+           [AC_MSG_RESULT([yes])],
+           [AC_MSG_RESULT([no])
+            GHOSTSCRIPT=])])
 AM_CONDITIONAL([HAVE_GHOSTSCRIPT], [test ! "x$GHOSTSCRIPT" = x])
 AM_COND_IF([HAVE_GHOSTSCRIPT],
            ,
