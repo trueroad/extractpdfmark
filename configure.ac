@@ -28,7 +28,10 @@ AS_IF([test "x$DIFF" = x],
       [AC_MSG_WARN([diff isn't found. `make check' will skip tests.])])
 AC_SUBST([DIFF])
 
-AC_PATH_PROG([GHOSTSCRIPT], [gs])
+AC_CHECK_PROG_VER([GHOSTSCRIPT], [gs], [--version],
+                  [\([1-9][0-9]*\.[0-9][0-9.]*\)],
+                  [[1-9][0-9]*|9.[1-9][0-9][0-9]*|9.[2-9][0-9]|9.1[4-9]],
+                  [GHOSTSCRIPT=])
 AM_CONDITIONAL([HAVE_GHOSTSCRIPT], [test ! "x$GHOSTSCRIPT" = x])
 AM_COND_IF([HAVE_GHOSTSCRIPT],
            ,
