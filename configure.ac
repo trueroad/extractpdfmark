@@ -126,6 +126,15 @@ AC_DEFINE_UNQUOTED([PACKAGE_STRING], ["$PACKAGE_STRING (with $POPPLER_IF)"],
     [Define to the full name and version, method of this package.])
 
 # Checks for header files.
+AM_COND_IF([USE_POPPLER_CORE],
+           [AC_LANG_PUSH([C++])
+            TEMP_CPPFLAGS=$CPPFLAGS
+            CPPFLAGS="$CPPFLAGS $POPPLER_CFLAGS"
+            AC_CHECK_HEADERS([Link.h PDFDoc.h PDFDocFactory.h],
+                ,
+                [AC_MSG_ERROR([poppler xpdf headers are not found.])])
+            CPPFLAGS=$TMP_CPPFLAGS
+            AC_LANG_POP])
 AC_ARG_ENABLE([codecvt],
               [AS_HELP_STRING(
                   [--disable-codecvt],
