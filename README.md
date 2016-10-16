@@ -51,6 +51,17 @@ You can get the small PDF that has preserved them by using this tool.
 with --enable-xpdf-headers option  
 (recommended poppler 0.48.0+)
 
+When you would like to use packages for preparing the required library,
+the following might be convenient.
+
+* Debian / Ubuntu
+  + libpoppler-private-dev
+  + libpoppler-dev
+* Fedora
+  + poppler-devel
+* Cygwin
+  + libpoppler-devel
+
 ## Build & install
 
     $ ./configure

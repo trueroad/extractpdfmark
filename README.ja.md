@@ -50,6 +50,16 @@ PDFmark として保存することができます。
 --enable-xpdf-headers オプション付き  
 （推奨 poppler 0.48.0 以降）
 
+パッケージを使って準備したい場合には、以下が便利でしょう。
+
+* Debian / Ubuntu
+  + libpoppler-private-dev
+  + libpoppler-dev
+* Fedora
+  + poppler-devel
+* Cygwin
+  + libpoppler-devel
+
 ## ビルド・インストール方法
 
     $ ./configure
