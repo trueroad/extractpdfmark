@@ -16,10 +16,7 @@ TESTTEXS = binary.tex destonly.tex desttype.tex nodest.tex \
 	pdfdocencoding.tex utf16.tex utf8.tex special-chars.tex \
 	pagemode-usenone.tex pagemode-thumbs.tex pagemode-fullscreen.tex
 # Test PDFs
-TESTPDFS = $(TESTTEXS:.tex=.pdf)
-if HAVE_GHOSTSCRIPT
-TESTPDFS += namedict.pdf
-endif
+TESTPDFS = $(TESTTEXS:.tex=.pdf) namedict.pdf
 # Expected PDFmark for expected pdf test
 TESTMARKS = $(TESTPDFS:.pdf=-expected.pdfmark) \
 	destonly-expected-literal-escape.pdfmark \
@@ -65,12 +62,17 @@ CLEANFILES = $(TESTMARKS:-expected.pdfmark=-expected-test.pdfmark) \
 	$(TESTROUNDS:-round-name-escape.ps=-round-name-escape-test.pdf) \
 	$(TESTROUNDS:-round-name-escape.ps=-round-name-escape-test.ps)
 
+if HAVE_GHOSTSCRIPT
 # For name object (PDF 1.1) handling test
 # PDF 1.2+ uses name tree intead of name object.
 # So most PDFs use name tree for named destination.
 namedict.pdf: nodest.pdf addnamedict.ps
 	$(GHOSTSCRIPT) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=$@ \
 		-dCompatibilityLevel=1.1 $^
+else
+namedict.pdf:
+	touch $@
+endif
 
 # Generate test PDFs
 # Tarball contains them for convenience.

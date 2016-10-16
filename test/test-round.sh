@@ -11,6 +11,10 @@ EXTRACTEDPDFMARK2="${BASENAME}-round${OPTSUFFIX}-test.ps"
 if [ ! -e ${PDF} ]; then
     PDF="${srcdir}/${BASENAME}.pdf"
 fi
+if [ ! -s ${PDF} ]; then
+    # skip
+    exit 77
+fi
 
 case "$OPTSUFFIX" in
     "-literal" )
