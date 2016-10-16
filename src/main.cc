@@ -20,6 +20,7 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <string>
 
 #include "cmdlineparse.hh"
 #include "output-pdfmark.hh"
