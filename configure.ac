@@ -52,8 +52,13 @@ AS_IF([test ! -e ${srcdir}/test/desttype.pdf],
                   [pdftex isn't found. Test PDFs cannot be generated.])
               AC_MSG_WARN(
                   [You cannot use `make check'.])],
-             [AC_MSG_NOTICE(
-                  [pdftex is found. Test PDFs will be generated.])])],
+             [AM_COND_IF([HAVE_GHOSTSCRIPT],
+                         [AC_MSG_NOTICE(
+                             [pdftex is found. Test PDFs will be generated.])],
+                         [AC_MSG_WARN(
+                             [pdftex is found but ghostscript isn't found.])
+                          AC_MSG_WARN(
+                             [You cannot use `make check'.])])])],
       [AC_MSG_RESULT([yes])])
 AC_SUBST([PDFTEX])
 
