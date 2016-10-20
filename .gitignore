@@ -22,3 +22,6 @@ stamp-h1
 *.exe
 extractpdfmark
 /test-driver
+config.guess
+config.rpath
+config.sub
