@@ -26,6 +26,10 @@
 
 #include <string>
 
+#ifdef USE_ICONV
+#include "iconv_wrapper.hh"
+#endif
+
 #ifdef USE_CODECVT
 
 bool is_utf8 (const std::string &str)
@@ -39,9 +43,31 @@ bool is_utf8 (const std::string &str)
 
 #else  // USE_CODECVT
 
+#ifdef USE_ICONV
+
+bool is_utf8 (const std::string &str)
+{
+  try
+    {
+      iconv_wrapper::iconv cvt8to16 {"UTF-8", "UTF-16"};
+      std::string utf16 {cvt8to16.convert (str)};
+      iconv_wrapper::iconv cvt16to8 {"UTF-16", "UTF-8"};
+      std::string utf8 {cvt16to8.convert (utf16)};
+      return (str == utf8);
+    }
+  catch (std::system_error &error)
+    {
+      return false;
+    }
+  return false;
+}
+
+#else  // USE_ICONV
+
 bool is_utf8 (const std::string &str)
 {
   return false;
 }
 
+#endif  // USE_ICONV
 #endif  // USE_CODECVT

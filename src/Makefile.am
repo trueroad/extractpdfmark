@@ -24,3 +24,8 @@ extractpdfmark_LDADD += -lextractpdfmark-poppler-glib $(POPPLER_GLIB_LIBS)
 extractpdfmark_LDFLAGS += -L./poppler-glib
 extractpdfmark_DEPENDENCIES += ./poppler-glib/libextractpdfmark-poppler-glib.a
 endif
+
+if USE_ICONV
+extractpdfmark_SOURCES += iconv_wrapper.hh
+extractpdfmark_LDADD += $(LIBICONV)
+endif
