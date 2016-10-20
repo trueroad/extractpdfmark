@@ -135,6 +135,7 @@ AM_COND_IF([USE_POPPLER_CORE],
                 [AC_MSG_ERROR([poppler xpdf headers are not found.])])
             CPPFLAGS=$TMP_CPPFLAGS
             AC_LANG_POP])
+
 AC_ARG_ENABLE([codecvt],
               [AS_HELP_STRING(
                   [--disable-codecvt],
@@ -145,8 +146,26 @@ AS_IF([test "x$enable_codecvt" != xno],
       [AC_LANG_PUSH([C++])
        AC_CHECK_HEADERS([codecvt])
        AC_LANG_POP])
-AS_IF([test "x$ac_cv_header_codecvt" = x],
-      [AC_MSG_WARN([Some `make check' will fail since codecvt is disabled.])])
+AS_IF([test "x$ac_cv_header_codecvt" == xyes],
+      [AC_DEFINE([USE_CODECVT], [1], [Define if codecvt is enabled.])])
+
+AC_ARG_ENABLE([iconv],
+              [AS_HELP_STRING(
+                  [--disable-iconv],
+                  [disable iconv for UTF-8 checking (default is enable)])],
+              ,
+              [enable_iconv=yes])
+# AM_ICONV does not seem to be able to put in IF block.
+AM_ICONV
+AM_CONDITIONAL([USE_ICONV],
+    [test "x$enable_iconv" = xyes && \
+     test "x$am_cv_func_iconv" = xyes && \
+     test "x$ac_cv_header_codecvt" != xyes])
+AM_COND_IF([USE_ICONV],
+    [AC_DEFINE([USE_ICONV], [1], [Define if iconv is enabled.])],
+    [AS_IF([test "x$ac_cv_header_codecvt" != xyes],
+        [AC_MSG_WARN(
+[Some `make check' will fail since both codecvt and iconv are disabled.])])])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
