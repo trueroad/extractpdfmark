@@ -19,14 +19,14 @@
 
 #include "utf8.hh"
 
-#ifdef HAVE_CODECVT
+#ifdef USE_CODECVT
 #include <cwchar>
 #include <codecvt>
 #endif
 
 #include <string>
 
-#ifdef HAVE_CODECVT
+#ifdef USE_CODECVT
 
 bool is_utf8 (const std::string &str)
 {
@@ -37,11 +37,11 @@ bool is_utf8 (const std::string &str)
           == str.length ());
 }
 
-#else  // HAVE_CODECVT
+#else  // USE_CODECVT
 
 bool is_utf8 (const std::string &str)
 {
   return false;
 }
 
-#endif  // HAVE_CODECVT
+#endif  // USE_CODECVT
