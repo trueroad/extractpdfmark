@@ -1,6 +1,8 @@
 <!-- -*- coding: utf-8 -*- -->
 # Extract PDFmark
 
+PDF からページモードやリンクの宛先名を抽出し PDFmark として保存します
+
 https://github.com/trueroad/extractpdfmark  
 http://www.ctan.org/pkg/extractpdfmark
 
