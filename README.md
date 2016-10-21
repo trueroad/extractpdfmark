@@ -1,49 +1,50 @@
 # Extract PDFmark
 
+Extract page mode and named destinations as PDFmark from PDF
+
 https://github.com/trueroad/extractpdfmark  
 http://www.ctan.org/pkg/extractpdfmark
 
-If you create a PDF document by something like TeX systems,
-many small PDFs as figures get included into the main PDF.
-It is common for each small PDF to use the same fonts.
+When you create a PDF document using something like a TeX system
+you may include many small PDF files in the main PDF file.
+It is common for each of the small PDF files to use the same fonts.
 
-If the small PDFs are embedded subsetted fonts,
-the TeX system includes them as-is for the main PDF.
+If the small PDF files contain embedded font subsets,
+the TeX system includes them as-is in the main PDF.
 As a result,
-the main PDF is embedded different subsets of the same duplicate font.
+several subsets of the same font are embedded in the main PDF.
 It is not possible to remove the duplicates since they are different subsets.
-It enormously increases the main PDF file size.
+This vastly increases the size of the main PDF file.
 
 On the other hand,
-if the small PDFs are embedded full set fonts,
-the TeX system also includes all of them for the main PDF.
-The main PDF is embedded many duplicate fonts,
-but they are all same full set fonts.
+if the small PDF files contain embedded full font sets,
+the TeX system also includes all of them in the main PDF.
+This time, the main PDF contains duplicates of the same full sets of fonts.
 Therefore, Ghostscript can remove the duplicates.
-It can reduce the main PDF files size.
+This may considerably reduce the main PDF-file's size.
 
-Moreover,
-if the small PDFs are not embedded any fonts,
-the TeX system outputs the main PDF which lacks some fonts.
+Finally,
+if the small PDF files contain some fonts that are *not* embedded,
+the TeX system outputs the main PDF file with some fonts missing.
 In this case, Ghostscript can embed the necessary fonts.
 It can significantly reduce the required disk size.
 
 Either way,
-Ghostscript inputs the main PDF which is outputted by the TeX system,
-and outputs the final PDF.
-Unfortunately, during this process,
-Ghostscript does not preserve PDF page-mode and named-destinations etc.
+when Ghostscript reads the main PDF produced by the TeX system
+and outputs the final PDF
+it does not preserve PDF page-mode and named-destinations etc.
 As a result,
 when you open the final PDF,
-it cannot realize the intended how the document shall be displayed.
-Remote PDF links also do not work.
+it is not displayed correctly.
+Also, remote PDF links will not work correctly.
 
 http://bugs.ghostscript.com/show_bug.cgi?id=696943  
 http://bugs.ghostscript.com/show_bug.cgi?id=695760
 
-Extract PDFmark can extract page mode and named destinations
+This program is able to extract page mode and named destinations
 as PDFmark from PDF.
-You can get the small PDF that has preserved them by using this tool.
+By using this you can get the small PDF files
+that have preserved them.
 
 ## Required
 
