@@ -23,5 +23,5 @@
 
 bool is_utf16 (const std::string &str)
 {
-  return (str.length () >= 2) && str[0] == 0xfe && str[1] == 0xff;
+  return (str.length () >= 2) && str[0] == '\xfe' && str[1] == '\xff';
 }
