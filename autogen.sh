@@ -10,7 +10,7 @@ echo
 echo "*** Creating dummy configure.ac"
 {
     cat <<EOF
-AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.8])
+AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.6])
 AM_GNU_GETTEXT([external])
 EOF
 } > configure.ac
