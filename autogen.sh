@@ -23,7 +23,9 @@ autopoint ||
 	echo
 	echo "WARNING: autopoint failed."
 	echo "WARNING: It is required for getting \`config.rpath'."
-	echo "WARNING: Please consider to install autopoint-0.19.6+."
+	echo "WARNING: Please install autopoint 0.19.6 or newer."
+	echo "WARNING: Depending on the platform, this is either"
+	echo "WARNING: a separate package or part of \`gettext-devel'."
     }
 
 echo
@@ -41,8 +43,10 @@ cp ${AUTOPOINT_TMP_DIR}/config.rpath . ||
 	else
 	    echo
 	    echo "ERROR: config.rpath does not exist."
-	    echo "ERROR: Please consider to install autopoint-0.19.6+"
-	    echo "ERROR: or copy \`config.rpath'."
+	    echo "ERROR: Please install autopoint 0.19.6 or newer."
+	    echo "ERROR: Depending on the platform, this is either"
+	    echo "ERROR: a separate package or part of \`gettext-devel'."
+	    echo "ERROR: Or, please copy \`config.rpath'."
 	    exit 1
 	fi
     }
