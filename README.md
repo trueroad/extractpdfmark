@@ -52,7 +52,16 @@ that have preserved them.
     $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
          -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
 
-## Required
+## Install from binary package
+
+Some distributions have `extractpdfmark` package.
+
+* Debian [9 stretch](https://packages.debian.org/stretch/extractpdfmark)
+* Ubuntu [17.04 Zesty Zapus](http://packages.ubuntu.com/zesty/extractpdfmark)
+
+## Install from [source tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.1/extractpdfmark-1.0.1.tar.gz)
+
+### Required
 
 [poppler](https://poppler.freedesktop.org/) 0.13.3+
 with --enable-xpdf-headers option  
@@ -69,7 +78,7 @@ the following might be convenient.
 * Cygwin
   + libpoppler-devel
 
-## Build & install
+### Build & install
 
     $ ./configure
     $ make

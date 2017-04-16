@@ -52,7 +52,16 @@ PDFmark として保存することができます。
     $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
          -sOutputFile=最終.pdf TeX出力.pdf 抽出したPDFmark.ps
 
-## 必要なもの
+## バイナリパッケージからのインストール
+
+いくつかのディストリビューションには `extractpdfmark` パッケージがあります。
+
+* Debian [9 stretch](https://packages.debian.org/stretch/extractpdfmark)
+* Ubuntu [17.04 Zesty Zapus](http://packages.ubuntu.com/zesty/extractpdfmark)
+
+## [ソース tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.1/extractpdfmark-1.0.1.tar.gz) からのインストール
+
+### 必要なもの
 
 [poppler](https://poppler.freedesktop.org/) 0.13.3 以降
 --enable-xpdf-headers オプション付き  
@@ -68,7 +77,7 @@ PDFmark として保存することができます。
 * Cygwin
   + libpoppler-devel
 
-## ビルド・インストール方法
+### ビルド・インストール方法
 
     $ ./configure
     $ make
