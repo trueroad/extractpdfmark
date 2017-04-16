@@ -46,6 +46,12 @@ PDFmark として保存することができます。
 このツールを使うと、ページモードやリンク先名を残したまま、
 サイズの小さい PDF を得ることができます。
 
+## 使い方
+
+    $ extractpdfmark TeX出力.pdf > 抽出したPDFmark.ps
+    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+         -sOutputFile=最終.pdf TeX出力.pdf 抽出したPDFmark.ps
+
 ## 必要なもの
 
 [poppler](https://poppler.freedesktop.org/) 0.13.3 以降
@@ -68,15 +74,9 @@ PDFmark として保存することができます。
     $ make
 	$ make install
 
-## 使い方
-
-    $ extractpdfmark TeX出力.pdf > 抽出したPDFmark.ps
-    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
-         -sOutputFile=最終.pdf TeX出力.pdf 抽出したPDFmark.ps
-
 ## ライセンス
 
-Copyright (C) 2016 Masamichi Hosoda
+Copyright (C) 2016, 2017 Masamichi Hosoda
 
 Extract PDFmark is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

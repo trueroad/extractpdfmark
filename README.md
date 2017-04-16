@@ -46,6 +46,12 @@ as PDFmark from PDF.
 By using this you can get the small PDF files
 that have preserved them.
 
+## Usage
+
+    $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
+    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+         -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
+
 ## Required
 
 [poppler](https://poppler.freedesktop.org/) 0.13.3+
@@ -69,15 +75,9 @@ the following might be convenient.
     $ make
 	$ make install
 
-## Usage
-
-    $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
-    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
-         -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
-
 ## Licence
 
-Copyright (C) 2016 Masamichi Hosoda
+Copyright (C) 2016, 2017 Masamichi Hosoda
 
 Extract PDFmark is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
