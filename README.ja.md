@@ -59,7 +59,7 @@ PDFmark として保存することができます。
 * Debian [9 stretch](https://packages.debian.org/stretch/extractpdfmark)
 * Ubuntu [17.04 Zesty Zapus](http://packages.ubuntu.com/zesty/extractpdfmark)
 
-## [ソース tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.1/extractpdfmark-1.0.1.tar.gz) からのインストール
+## [ソース tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.2/extractpdfmark-1.0.2.tar.gz) からのインストール
 
 ### 必要なもの
 

@@ -2,13 +2,13 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([Extract PDFmark], [1.0.1], , [extractpdfmark],
+AC_INIT([Extract PDFmark], [1.0.2], , [extractpdfmark],
         [https://github.com/trueroad/extractpdfmark/])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([src/main.cc])
 AC_CONFIG_HEADERS([config.h])
 
-PACKAGE_COPYRIGHT="Copyright (C) 2016 Masamichi Hosoda"
+PACKAGE_COPYRIGHT="Copyright (C) 2016, 2017 Masamichi Hosoda"
 PACKAGE_LICENSE="License: GPL3+"
 
 AC_SUBST([PACKAGE_COPYRIGHT])
