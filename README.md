@@ -82,15 +82,15 @@ the following might be convenient.
 
     $ ./configure
     $ make
-	$ make install
+    $ make install
 
 If you have `Ghostscript` 9.14+ and `diff` etc.,
 you can run tests before installation as follows.
 
     $ ./configure
     $ make
-	$ make check
-	$ make install
+    $ make check
+    $ make install
 
 ## Install from [Git repository](https://github.com/trueroad/extractpdfmark)
 
@@ -110,14 +110,14 @@ Ghostscript 9.14+ (for `make check`)
 ### Build & install
 
     $ git clone https://github.com/trueroad/extractpdfmark.git
-	$ cd extractpdfmark
-	$ ./autogen.sh
-	$ mkdir build
-	$ cd build
+    $ cd extractpdfmark
+    $ ./autogen.sh
+    $ mkdir build
+    $ cd build
     $ ../configure
     $ make
-	$ make check
-	$ make install
+    $ make check
+    $ make install
 
 ## Licence
 

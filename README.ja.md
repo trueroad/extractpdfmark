@@ -81,15 +81,15 @@ PDFmark として保存することができます。
 
     $ ./configure
     $ make
-	$ make install
+    $ make install
 
 `Ghostscript` 9.14 以降と `diff` 等があれば、
 以下のようにインストール前にテストすることができます。
 
     $ ./configure
     $ make
-	$ make check
-	$ make install
+    $ make check
+    $ make install
 
 ## [Git リポジトリ](https://github.com/trueroad/extractpdfmark)からのインストール
 
@@ -109,14 +109,14 @@ Ghostscript 9.14 以降（`make check` 用）
 ### ビルド・インストール方法
 
     $ git clone https://github.com/trueroad/extractpdfmark.git
-	$ cd extractpdfmark
-	$ ./autogen.sh
-	$ mkdir build
-	$ cd build
+    $ cd extractpdfmark
+    $ ./autogen.sh
+    $ mkdir build
+    $ cd build
     $ ../configure
     $ make
-	$ make check
-	$ make install
+    $ make check
+    $ make install
 
 ## ライセンス
 
