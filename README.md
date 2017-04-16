@@ -84,6 +84,14 @@ the following might be convenient.
     $ make
 	$ make install
 
+If you have `Ghostscript` 9.14+ and `diff` etc.,
+you can run tests before installation as follows.
+
+    $ ./configure
+    $ make
+	$ make check
+	$ make install
+
 ## Licence
 
 Copyright (C) 2016, 2017 Masamichi Hosoda

@@ -83,6 +83,14 @@ PDFmark として保存することができます。
     $ make
 	$ make install
 
+`Ghostscript` 9.14 以降と `diff` 等があれば、
+以下のようにインストール前にテストすることができます。
+
+    $ ./configure
+    $ make
+	$ make check
+	$ make install
+
 ## ライセンス
 
 Copyright (C) 2016, 2017 Masamichi Hosoda
