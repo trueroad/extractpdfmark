@@ -92,6 +92,33 @@ you can run tests before installation as follows.
 	$ make check
 	$ make install
 
+## Install from [Git repository](https://github.com/trueroad/extractpdfmark)
+
+Source tarball build requirements and additional requirements are necessary.
+
+### Additional required
+
+Autoconf 2.69+  
+Automake  
+autopoint 0.19.6+ (gettext 0.19.6+)
+
+### Additional recommended
+
+pdfTeX (for generating test PDFs)  
+Ghostscript 9.14+ (for `make check`)
+
+### Build & install
+
+    $ git clone https://github.com/trueroad/extractpdfmark.git
+	$ cd extractpdfmark
+	$ ./autogen.sh
+	$ mkdir build
+	$ cd build
+    $ ../configure
+    $ make
+	$ make check
+	$ make install
+
 ## Licence
 
 Copyright (C) 2016, 2017 Masamichi Hosoda

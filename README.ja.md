@@ -91,6 +91,33 @@ PDFmark として保存することができます。
 	$ make check
 	$ make install
 
+## [Git リポジトリ](https://github.com/trueroad/extractpdfmark)からのインストール
+
+ソース tarball のビルド要件と追加の要件が必要です。
+
+### 追加で必要なもの
+
+Autoconf 2.69 以降  
+Automake  
+autopoint 0.19.6 以降（gettext 0.19.6 以降）
+
+### 追加で推奨するもの
+
+pdfTeX （テスト PDF の生成用）  
+Ghostscript 9.14 以降（`make check` 用）
+
+### ビルド・インストール方法
+
+    $ git clone https://github.com/trueroad/extractpdfmark.git
+	$ cd extractpdfmark
+	$ ./autogen.sh
+	$ mkdir build
+	$ cd build
+    $ ../configure
+    $ make
+	$ make check
+	$ make install
+
 ## ライセンス
 
 Copyright (C) 2016, 2017 Masamichi Hosoda
