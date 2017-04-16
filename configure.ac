@@ -175,5 +175,6 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/poppler-core/Makefile
                  src/poppler-glib/Makefile
+                 man/Makefile
                  test/Makefile])
 AC_OUTPUT

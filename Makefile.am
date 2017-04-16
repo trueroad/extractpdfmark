@@ -1,4 +1,4 @@
-SUBDIRS = src test
+SUBDIRS = src man test
 
 dist_doc_DATA = README.md README.ja.md COPYING
 EXTRA_DIST = autogen.sh

@@ -1,0 +1,50 @@
+.TH EXTRACTPDFMARK 1 "December 11, 2016"
+.SH NAME
+extractpdfmark \- Extract page mode and named destinations as PDFmark from PDF
+.SH SYNOPSIS
+.B extractpdfmark
+.IR file.pdf " > " file.ps
+.SH DESCRIPTION
+This manual page documents briefly the
+.B extractpdfmark
+command.
+.PP
+When you create a PDF document using a TeX system, you may include
+many small PDF files in the main PDF file.
+It is common for each of those files to use the same fonts.
+.PP
+If the small PDF files contain embedded font subsets, the TeX system
+includes them as-is in the main PDF.
+As a result, several subsets of the same font are embedded in the main PDF.
+It is not possible to remove the duplicates since they are different subsets.
+This vastly increases the size of the main PDF file.
+.PP
+On the other hand, if the small PDF files contain embedded full font
+sets, the TeX system also includes all of them in the main PDF.
+This time, the main PDF contains duplicates of the same full sets of
+fonts.
+Therefore, Ghostscript can remove the duplicates.
+This may considerably reduce the main PDF\-file's size.
+.PP
+Finally, if the small PDF files contain some fonts that are not
+embedded, the TeX system outputs the main PDF file with some fonts
+missing.
+In this case, Ghostscript can embed the necessary fonts.
+It can significantly reduce the required disk size.
+.PP
+Either way, when Ghostscript reads the main PDF produced by the
+TeX system and outputs the final PDF it does not preserve PDF
+page\-mode and named\-destinations etc.
+As a result, when you open the final PDF, it is not displayed correctly.
+Also, remote PDF links will not work.
+.PP
+This program is able to extract page mode and named destinations
+as PDFmark from PDF.
+By using this you can get the small PDF files that have preserved them.
+.SH EXAMPLE
+.RS
+$ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
+.RE
+.RS
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
+.RE
