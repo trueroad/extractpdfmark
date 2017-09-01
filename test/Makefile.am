@@ -64,7 +64,7 @@ CLEANFILES = $(TESTMARKS:-expected.pdfmark=-expected-test.pdfmark) \
 
 if HAVE_GHOSTSCRIPT
 # For name object (PDF 1.1) handling test
-# PDF 1.2+ uses name tree intead of name object.
+# PDF 1.2+ uses name tree instead of name object.
 # So most PDFs use name tree for named destination.
 namedict.pdf: nodest.pdf addnamedict.ps
 	$(GHOSTSCRIPT) -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=$@ \
