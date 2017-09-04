@@ -49,7 +49,7 @@ PDFmark として保存することができます。
 ## 使い方
 
     $ extractpdfmark TeX出力.pdf > 抽出したPDFmark.ps
-    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum \
          -sOutputFile=最終.pdf TeX出力.pdf 抽出したPDFmark.ps
 
 ## バイナリパッケージからのインストール

@@ -46,5 +46,5 @@ By using this you can get the small PDF files that have preserved them.
 $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
 .RE
 .RS
-$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
 .RE

@@ -49,7 +49,7 @@ that have preserved them.
 ## Usage
 
     $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
-    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum \
          -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
 
 ## Install from binary package
