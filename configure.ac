@@ -138,10 +138,10 @@ AM_COND_IF([USE_POPPLER_CORE],
 
 AC_ARG_ENABLE([codecvt],
               [AS_HELP_STRING(
-                  [--disable-codecvt],
-                  [disable codecvt for UTF-8 checking (default is enable)])],
+                  [--enable-codecvt],
+                  [enable codecvt for UTF-8 checking (default is disable)])],
               ,
-              [enable_codecvt=yes])
+              [enable_codecvt=no])
 AS_IF([test "x$enable_codecvt" != xno],
       [AC_LANG_PUSH([C++])
        AC_CHECK_HEADERS([codecvt])
