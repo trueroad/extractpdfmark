@@ -1,6 +1,6 @@
 // This file is part of Extract PDFmark.
 //
-// Copyright (C) 2016 Masamichi Hosoda
+// Copyright (C) 2016, 2018 Masamichi Hosoda
 //
 // Extract PDFmark is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -32,7 +32,12 @@
 
 inline std::string goo_to_string (GooString *goo)
 {
-  return std::string {goo->getCString (),
+  return std::string {
+#ifdef HAS_GOOSTRING_C_STR
+    goo->c_str (),
+#else
+    goo->getCString (),
+#endif
       static_cast<std::string::size_type>(goo->getLength ())};
 }
 
