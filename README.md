@@ -61,8 +61,17 @@ that have preserved them.
 
 Some distributions have `extractpdfmark` package.
 
-* Debian [9 stretch](https://packages.debian.org/stretch/extractpdfmark)
-* Ubuntu [17.04 Zesty Zapus](http://packages.ubuntu.com/zesty/extractpdfmark)
+* Debian:
+[9 stretch](https://packages.debian.org/stretch/extractpdfmark).
+* Ubuntu:
+17.04 Zesty Zapus,
+17.10 Artful Aardvark,
+[18.04 LTS Bionic Beaver](https://packages.ubuntu.com/bionic/extractpdfmark),
+[18.10 Cosmic Cuttlefish](https://packages.ubuntu.com/cosmic/extractpdfmark).
+* Fedora:
+[29](https://apps.fedoraproject.org/packages/extractpdfmark).
+* Cygwin:
+[2017-05](https://sourceware.org/ml/cygwin-announce/2017-05/msg00030.html).
 
 ## Install from [source tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.2/extractpdfmark-1.0.2.tar.gz)
 
