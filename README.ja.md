@@ -78,7 +78,10 @@ PDFmark として保存することができます。
 ### 必要なもの
 
 [poppler](https://poppler.freedesktop.org/) 0.13.3 以降
---enable-xpdf-headers オプション付き  
+--enable-xpdf-headers (poppler 0.59.0 まで)
+または
+-DENABLE_XPDF_HEADERS=ON （poppler 0.60.0 以降）
+オプション付き  
 （推奨 poppler 0.48.0 以降）
 
 パッケージを使って準備したい場合には、以下が便利でしょう。

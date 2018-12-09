@@ -78,7 +78,8 @@ Some distributions have `extractpdfmark` package.
 ### Required
 
 [poppler](https://poppler.freedesktop.org/) 0.13.3+
-with --enable-xpdf-headers option  
+with --enable-xpdf-headers (poppler 0.59.0 and before)
+or -DENABLE_XPDF_HEADERS=ON (poppler 0.60.0 and after) option  
 (recommended poppler 0.48.0+)
 
 When you would like to use packages for preparing the required library,
