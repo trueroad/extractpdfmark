@@ -1,6 +1,6 @@
 // This file is part of Extract PDFmark.
 //
-// Copyright (C) 2016 Masamichi Hosoda
+// Copyright (C) 2016-2018 Masamichi Hosoda
 //
 // Extract PDFmark is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,7 +28,16 @@ void output_pdfmark::add_options (cmdlineparse::parser *cmd)
 {
   cmd->add_string (0, "style", &style, "literal",
                    "    Name style\n"
-                   "      literal: literal strings\n"
+                   "      literal: literal strings"
+#ifdef USE_CODECVT
+                   " (UTF-8 validation by codecvt)\n"
+#else
+#ifdef USE_ICONV
+                   " (UTF-8 validation by iconv)\n"
+#else  // USE_ICONV
+                   " (no UTF-8 validation)\n"
+#endif  // USE_ICONV
+#endif  // USE_CODECVT
                    "      hex:     hexadecimal strings\n"
                    "      name:    name object",
                    "STYLE");
