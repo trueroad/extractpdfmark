@@ -1,4 +1,4 @@
-.TH EXTRACTPDFMARK 1 "December 11, 2016"
+.TH EXTRACTPDFMARK 1 "December 9, 2018"
 .SH NAME
 extractpdfmark \- Extract page mode and named destinations as PDFmark from PDF
 .SH SYNOPSIS
@@ -25,6 +25,12 @@ This time, the main PDF contains duplicates of the same full sets of
 fonts.
 Therefore, Ghostscript can remove the duplicates.
 This may considerably reduce the main PDF\-file's size.
+(Note: Ghostscript 9.17 - 9.21 needs
+.I -dPDFDontUseFontObjectNum
+commandline option for removing duplicate fonts.
+If you use Ghostscript 9.22+, you cannot use this "full set embedding" method
+since it cannot remove duplicate fonts.
+In this case, you can use "*not* embedding" method as following.)
 .PP
 Finally, if the small PDF files contain some fonts that are not
 embedded, the TeX system outputs the main PDF file with some fonts

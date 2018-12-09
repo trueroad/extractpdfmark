@@ -22,6 +22,11 @@ the TeX system also includes all of them in the main PDF.
 This time, the main PDF contains duplicates of the same full sets of fonts.
 Therefore, Ghostscript can remove the duplicates.
 This may considerably reduce the main PDF-file's size.
+(Note: Ghostscript 9.17 - 9.21 needs `-dPDFDontUseFontObjectNum`
+commandline option for removing duplicate fonts.
+If you use Ghostscript 9.22+, you cannot use this "full set embedding" method
+since it cannot remove duplicate fonts.
+In this case, you can use "*not* embedding" method as following.)
 
 Finally,
 if the small PDF files contain some fonts that are *not* embedded,
@@ -121,7 +126,7 @@ Ghostscript 9.14+ (for `make check`)
 
 ## Licence
 
-Copyright (C) 2016, 2017 Masamichi Hosoda
+Copyright (C) 2016-2018 Masamichi Hosoda
 
 Extract PDFmark is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

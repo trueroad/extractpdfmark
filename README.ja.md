@@ -24,6 +24,11 @@ TeX システムはフルセットのフォントをメインの PDF へ埋め�
 すべて同じフルセットのフォントです。
 そのため、Ghostscript を使えば重複を削除することができ、
 これによってメイン PDF のサイズを低減することができます。
+（注意： Ghostscript 9.17 から 9.21 は重複フォント削除のために
+`-dPDFDontUseFontObjectNum` コマンドラインオプションが必要です。
+Ghostscript 9.22 以降は重複フォント削除ができなくなくなったため、
+フルセット埋め込みの方法を採ることができません。
+この場合は、次に示すフォントを一切埋め込まない方法を採る必要があります。）
 
 さらに、図の PDF に一切フォントを埋め込まなかった場合、
 TeX システムはフォントが欠けたメイン PDF を出力します。
@@ -120,7 +125,7 @@ Ghostscript 9.14 以降（`make check` 用）
 
 ## ライセンス
 
-Copyright (C) 2016, 2017 Masamichi Hosoda
+Copyright (C) 2016-2018 Masamichi Hosoda
 
 Extract PDFmark is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
