@@ -168,6 +168,21 @@ AM_COND_IF([USE_ICONV],
 [Some `make check' will fail since both codecvt and iconv are disabled.])])])
 
 # Checks for typedefs, structures, and compiler characteristics.
+AM_COND_IF([USE_POPPLER_CORE],
+           [AC_LANG_PUSH([C++])
+            TEMP_CPPFLAGS=$CPPFLAGS
+            CPPFLAGS="$CPPFLAGS $POPPLER_CFLAGS"
+            AC_MSG_CHECKING([for poppler's GooString::c_str ()])
+            AC_COMPILE_IFELSE(
+                [AC_LANG_PROGRAM(
+                     [[ #include <Link.h> ]],
+                     [[ GooString goo; const char *dummy = goo.c_str (); ]])],
+                [AC_MSG_RESULT([yes])
+                 AC_DEFINE([HAS_GOOSTRING_C_STR], [1],
+                     [Define if poppler's GooString::c_str () exists])],
+                [AC_MSG_RESULT([no])])
+            CPPFLAGS=$TMP_CPPFLAGS
+            AC_LANG_POP])
 
 # Checks for library functions.
 
