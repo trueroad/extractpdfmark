@@ -73,7 +73,7 @@ PDFmark として保存することができます。
 * Cygwin:
 [2017-05](https://sourceware.org/ml/cygwin-announce/2017-05/msg00030.html).
 
-## [ソース tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.2/extractpdfmark-1.0.2.tar.gz) からのインストール
+## [ソース tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.3/extractpdfmark-1.0.3.tar.gz) からのインストール
 
 ### 必要なもの
 
@@ -134,6 +134,10 @@ Ghostscript 9.14 以降（`make check` 用）
     $ make
     $ make check
     $ make install
+
+## News
+
+[News](./NEWS)
 
 ## ライセンス
 
