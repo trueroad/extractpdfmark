@@ -26,6 +26,8 @@ This may considerably reduce the main PDF-file's size.
 commandline option for removing duplicate fonts.
 If you use Ghostscript 9.22+, you cannot use this "full set embedding" method
 since it cannot remove duplicate fonts.
+See https://ghostscript.com/pipermail/gs-devel/2017-September/date.html
+and http://lists.gnu.org/archive/html/lilypond-devel/2017-09/index.html .
 In this case, you can use "*not* embedding" method as following.)
 
 Finally,
@@ -33,6 +35,9 @@ if the small PDF files contain some fonts that are *not* embedded,
 the TeX system outputs the main PDF file with some fonts missing.
 In this case, Ghostscript can embed the necessary fonts.
 It can significantly reduce the required disk size.
+(Note: If you use Ghostscript 9.26+ and want to embed CID fonts,
+see https://bugs.ghostscript.com/show_bug.cgi?id=700367
+and https://bugs.ghostscript.com/show_bug.cgi?id=700436 .)
 
 Either way,
 when Ghostscript reads the main PDF produced by the TeX system
@@ -54,8 +59,12 @@ that have preserved them.
 ## Usage
 
     $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
-    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum \
+    $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+         -dPDFDontUseFontObjectNum -dPrinted=false \
          -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
+
+(Note: Ghostscript 9.26+ needs `-dPrinted=false` commandline option.
+See https://bugs.ghostscript.com/show_bug.cgi?id=699830 .)
 
 ## Install from binary package
 
@@ -78,9 +87,12 @@ Some distributions have `extractpdfmark` package.
 ### Required
 
 [poppler](https://poppler.freedesktop.org/) 0.13.3+
-with --enable-xpdf-headers (poppler 0.59.0 and before)
-or -DENABLE_XPDF_HEADERS=ON (poppler 0.60.0 and after) option  
+built with the following option.
 (recommended poppler 0.48.0+)
+
+* --enable-xpdf-headers (poppler 0.59.0 and before)
+* -DENABLE_XPDF_HEADERS=ON (poppler 0.60.0 - 0.72.0)
+* -DENABLE_UNSTABLE_API_ABI_HEADERS=ON (poppler 0.73.0 and after)
 
 When you would like to use packages for preparing the required library,
 the following might be convenient.
@@ -140,7 +152,7 @@ Ghostscript 9.14+ (for `make check`)
 
 ## Licence
 
-Copyright (C) 2016-2018 Masamichi Hosoda
+Copyright (C) 2016-2019 Masamichi Hosoda
 
 Extract PDFmark is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
