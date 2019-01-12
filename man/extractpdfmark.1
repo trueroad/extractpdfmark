@@ -1,4 +1,4 @@
-.TH EXTRACTPDFMARK 1 "December 9, 2018"
+.TH EXTRACTPDFMARK 1 "January 12, 2019"
 .SH NAME
 extractpdfmark \- Extract page mode and named destinations as PDFmark from PDF
 .SH SYNOPSIS
@@ -52,5 +52,9 @@ By using this you can get the small PDF files that have preserved them.
 $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
 .RE
 .RS
-$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum -dPrinted=false -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
 .RE
+.PP
+(Note: Ghostscript 9.26+ needs
+.I -dPrinted=false
+commandline option.)
