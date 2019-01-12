@@ -1,6 +1,6 @@
 // This file is part of Extract PDFmark.
 //
-// Copyright (C) 2016 Masamichi Hosoda
+// Copyright (C) 2016, 2019 Masamichi Hosoda
 //
 // Extract PDFmark is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,17 +28,19 @@ gboolean poppler_glib::walk_entry (gpointer key,
                                    gpointer value,
                                    gpointer user_data)
 {
-  GBytes *name = static_cast<GBytes*> (key);
+  gchar *name = static_cast<char*> (key);
   PopplerDest *dest = static_cast<PopplerDest*> (value);
   poppler_glib *pg = static_cast<poppler_glib*> (user_data);
 
   return pg->walk (name, dest);
 }
 
-bool poppler_glib::walk (GBytes *name, PopplerDest *dest)
+bool poppler_glib::walk (gchar *name, PopplerDest *dest)
 {
-  std::string n {static_cast<const char*> (g_bytes_get_data (name, nullptr)),
-      static_cast<std::string::size_type> (g_bytes_get_size (name))};
+  gsize len;
+  void *data {poppler_named_dest_to_bytestring (name, &len)};
+  std::string n {static_cast<char*> (data),
+    static_cast<std::string::size_type> (len)};
   std::stringstream ss;
   if (dest)
     {

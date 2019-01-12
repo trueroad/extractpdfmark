@@ -39,7 +39,7 @@ private:
   static gboolean walk_entry (gpointer key,
                               gpointer value,
                               gpointer user_data);
-  bool walk (GBytes *name, PopplerDest *dest);
+  bool walk (gchar *name, PopplerDest *dest);
 
   PopplerDocument *document = nullptr;
   std::string dests;
