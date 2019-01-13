@@ -8,7 +8,7 @@ AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([src/main.cc])
 AC_CONFIG_HEADERS([config.h])
 
-PACKAGE_COPYRIGHT="Copyright (C) 2016-2018 Masamichi Hosoda"
+PACKAGE_COPYRIGHT="Copyright (C) 2016-2019 Masamichi Hosoda"
 PACKAGE_LICENSE="License: GPL3+"
 
 AC_SUBST([PACKAGE_COPYRIGHT])
@@ -76,11 +76,14 @@ AS_IF([test ! -e ${srcdir}/test/desttype-expected.pdfmark],
 PKG_PROG_PKG_CONFIG
 
 AC_ARG_WITH([poppler],
-             AS_HELP_STRING([--with-poppler=@<:@auto|glib|core|core-private@:>@],
+             AS_HELP_STRING([--with-poppler=@<:@auto|cpp|glib|core|core-private@:>@],
                             [Poppler I/F (default: auto)]),
                             ,
                             [with_poppler=auto])
 AS_CASE(["$with_poppler"],
+        ["cpp"],
+            [AC_MSG_NOTICE([--with-poppler=cpp requires poppler >= 0.48.0])
+             PKG_CHECK_MODULES([POPPLER_CPP], [poppler-cpp >= 0.48.0])],
         ["glib"],
             [AC_MSG_NOTICE([--with-poppler=glib requires poppler >= 0.48.0])
              PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.48.0])],
@@ -108,6 +111,9 @@ AS_CASE(["$with_poppler"],
              AC_MSG_NOTICE([use --with-poppler=$with_poppler]),
         [AC_MSG_ERROR([unrecognized --with-poppler argument: $with_poppler])])
 AS_CASE(["$with_poppler"],
+        ["cpp"],
+            [POPPLER_IF="poppler-cpp"
+             use_library="cpp"],
         ["glib"],
             [POPPLER_IF="poppler-glib"
              use_library="glib"],
@@ -122,6 +128,7 @@ AS_CASE(["$with_poppler"],
         [AC_MSG_ERROR([programming error])])
 AM_CONDITIONAL([USE_POPPLER_CORE], [test $use_library = core])
 AM_CONDITIONAL([USE_POPPLER_GLIB], [test $use_library = glib])
+AM_CONDITIONAL([USE_POPPLER_CPP], [test $use_library = cpp])
 AC_DEFINE_UNQUOTED([PACKAGE_STRING], ["$PACKAGE_STRING (with $POPPLER_IF)"],
     [Define to the full name and version, method of this package.])
 
@@ -190,6 +197,7 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/poppler-core/Makefile
                  src/poppler-glib/Makefile
+                 src/poppler-cpp/Makefile
                  man/Makefile
                  test/Makefile])
 AC_OUTPUT
