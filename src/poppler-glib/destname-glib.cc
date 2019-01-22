@@ -125,7 +125,7 @@ bool poppler_glib::walk (gchar *name, PopplerDest *dest)
 std::string poppler_glib::destname (void)
 {
   std::unique_ptr<GTree, decltype (&g_tree_destroy)>
-    tree {poppler_document_build_dests_tree (document), g_tree_destroy};
+    tree {poppler_document_create_dests_tree (document), g_tree_destroy};
   dests.clear ();
 
   g_tree_foreach (tree.get (), walk_entry, this);
