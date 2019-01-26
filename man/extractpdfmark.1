@@ -1,4 +1,4 @@
-.TH EXTRACTPDFMARK 1 "January 12, 2019"
+.TH EXTRACTPDFMARK 1 "January 26, 2019"
 .SH NAME
 extractpdfmark \- Extract page mode and named destinations as PDFmark from PDF
 .SH SYNOPSIS
@@ -16,7 +16,7 @@ It is common for each of those files to use the same fonts.
 If the small PDF files contain embedded font subsets, the TeX system
 includes them as-is in the main PDF.
 As a result, several subsets of the same font are embedded in the main PDF.
-It is not possible to remove the duplicates since they are different subsets.
+It is not possible to remove the duplicates since the subsets differ.
 This vastly increases the size of the main PDF file.
 .PP
 On the other hand, if the small PDF files contain embedded full font
@@ -36,24 +36,25 @@ Finally, if the small PDF files contain some fonts that are not
 embedded, the TeX system outputs the main PDF file with some fonts
 missing.
 In this case, Ghostscript can embed the necessary fonts.
-It can significantly reduce the required disk size.
+It can also significantly reduce the required disk size.
 .PP
 Either way, when Ghostscript reads the main PDF produced by the
 TeX system and outputs the final PDF it does not preserve PDF
-page\-mode and named\-destinations etc.
+page\-mode and named\-destinations, etc.
 As a result, when you open the final PDF, it is not displayed correctly.
 Also, remote PDF links will not work.
 .PP
-This program is able to extract page mode and named destinations
+This program is able to extract the page mode and named destinations
 as PDFmark from PDF.
 By using this you can get the small PDF files that have preserved them.
 .SH EXAMPLE
-.RS
+.EX
 $ extractpdfmark TeX-System-Outputted.pdf > Extracted-PDFmark.ps
-.RE
-.RS
-$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dPDFDontUseFontObjectNum -dPrinted=false -sOutputFile=Final.pdf TeX-System-Outputted.pdf Extracted-PDFmark.ps
-.RE
+$ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \e
+     -dPDFDontUseFontObjectNum -dPrinted=false \e
+     -sOutputFile=Final.pdf \e
+     TeX-System-Outputted.pdf Extracted-PDFmark.ps
+.EE
 .PP
 (Note: Ghostscript 9.26+ needs
 .I -dPrinted=false
