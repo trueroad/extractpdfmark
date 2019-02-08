@@ -82,11 +82,11 @@ AC_ARG_WITH([poppler],
                             [with_poppler=auto])
 AS_CASE(["$with_poppler"],
         ["cpp"],
-            [AC_MSG_NOTICE([--with-poppler=cpp requires poppler >= 0.48.0])
-             PKG_CHECK_MODULES([POPPLER_CPP], [poppler-cpp >= 0.48.0])],
+            [AC_MSG_NOTICE([--with-poppler=cpp requires poppler >= 0.74.0])
+             PKG_CHECK_MODULES([POPPLER_CPP], [poppler-cpp >= 0.74.0])],
         ["glib"],
-            [AC_MSG_NOTICE([--with-poppler=glib requires poppler >= 0.48.0])
-             PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.48.0])],
+            [AC_MSG_NOTICE([--with-poppler=glib requires poppler >= 0.74.0])
+             PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.74.0])],
         ["core"],
             [AC_MSG_NOTICE([--with-poppler=core requires poppler >= 0.48.0])
              PKG_CHECK_MODULES([POPPLER], [poppler >= 0.48.0])],
@@ -96,10 +96,10 @@ AS_CASE(["$with_poppler"],
              PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])],
         ["auto"],
             [AC_MSG_NOTICE([selecting for --with-poppler=auto])
-             AC_MSG_NOTICE([ trying for glib (experiment)])
+             AC_MSG_NOTICE([ trying for cpp (poppler-cpp >= 0.74.0)])
              PKG_CHECK_MODULES(
-                 [POPPLER_GLIB], [poppler-glib >= 99.99.99],
-                 [with_poppler="glib"],
+                 [POPPLER_CPP], [poppler-cpp >= 0.74.00],
+                 [with_poppler="cpp"],
                  [AC_MSG_NOTICE([ trying for core (poppler >= 0.48.0)])
                   PKG_CHECK_MODULES(
                       [POPPLER], [poppler >= 0.48.0],
