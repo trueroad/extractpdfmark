@@ -94,6 +94,8 @@ Please choose which to use when building Extrat PDFmark.
 [poppler](https://poppler.freedesktop.org/) 0.74.0+ is required.
 Extract PDFmark's configure script selects poppler-cpp I/F
 if pkg-config finds poppler-cpp >= 0.74.0.
+The configure script's option `--with-poppler=cpp` specifies
+explicitly using this interface.
 
 When you would like to use packages for preparing the required library,
 the following might be convenient.
@@ -111,13 +113,23 @@ the following might be convenient.
 built with the following option is required
 (recommended poppler 0.48.0+).
 If you have poppler 0.74.0+, poppler-cpp I/F is recommended.
-Extract PDFmark's configure script selects poppler-core I/F
-if pkg-config does not find poppler-cpp >= 0.74.0
-and finds poppler >= 0.13.3.
 
 * --enable-xpdf-headers (poppler 0.59.0 and before)
 * -DENABLE_XPDF_HEADERS=ON (poppler 0.60.0 - 0.72.0)
 * -DENABLE_UNSTABLE_API_ABI_HEADERS=ON (poppler 0.73.0 and after)
+
+Extract PDFmark's configure script selects poppler-core I/F
+if pkg-config does not find poppler-cpp >= 0.74.0
+and finds poppler >= 0.24.4.
+The configure script's option `--with-poppler=core-private` specifies
+explicitly using this interface's private version (for poppler 0.13.3+).
+If you would like to use poppler 0.13.3 - 0.24.3,
+it is necessary to specify explicitly configure script's option
+`--with-poppler=core-private`.
+However, Extract PDFmark with these versions of popler fails
+some tests in `make check`.
+The configure script's option `--with-poppler=core` specifies
+explicitly using this interface's normal version (for poppler 0.48.0+).
 
 When you would like to use packages for preparing the required library,
 the following might be convenient.
