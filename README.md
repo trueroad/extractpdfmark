@@ -86,9 +86,34 @@ Some distributions have `extractpdfmark` package.
 
 ### Required
 
+Extract PDFmark requires one of the two interfaces of poppler.
+Please choose which to use when building Extrat PDFmark.
+
+#### poppler-cpp I/F (recommended)
+
+[poppler](https://poppler.freedesktop.org/) 0.74.0+ is required.
+Extract PDFmark's configure script selects poppler-cpp I/F
+if pkg-config finds poppler-cpp >= 0.74.0.
+
+When you would like to use packages for preparing the required library,
+the following might be convenient.
+
+* Debian / Ubuntu
+    + libpoppler-cpp-dev
+* Fedora
+    + poppler-cpp-devel
+* Cygwin
+    + libpoppler-cpp-devel
+
+#### poppler-core I/F
+
 [poppler](https://poppler.freedesktop.org/) 0.13.3+
-built with the following option.
-(recommended poppler 0.48.0+)
+built with the following option is required
+(recommended poppler 0.48.0+).
+If you have poppler 0.74.0+, poppler-cpp I/F is recommended.
+Extract PDFmark's configure script selects poppler-core I/F
+if pkg-config does not find poppler-cpp >= 0.74.0
+and finds poppler >= 0.13.3.
 
 * --enable-xpdf-headers (poppler 0.59.0 and before)
 * -DENABLE_XPDF_HEADERS=ON (poppler 0.60.0 - 0.72.0)
@@ -98,12 +123,12 @@ When you would like to use packages for preparing the required library,
 the following might be convenient.
 
 * Debian / Ubuntu
-  + libpoppler-private-dev
-  + libpoppler-dev
+    + libpoppler-private-dev
+    + libpoppler-dev
 * Fedora
-  + poppler-devel
+    + poppler-devel
 * Cygwin
-  + libpoppler-devel
+    + libpoppler-devel
 
 ### Build & install
 

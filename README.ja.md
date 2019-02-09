@@ -90,9 +90,36 @@ https://bugs.ghostscript.com/show_bug.cgi?id=699830
 
 ### 必要なもの
 
+Extract PDFmark は poppler にある 2 種類のインタフェースのうち、
+どちらかを必要とします。
+Extract PDFmark をビルドする際に、どちらを使用するか選択してください。
+
+#### poppler-cpp I/F （推奨）
+
+[poppler](https://poppler.freedesktop.org/) 0.74.0 以降が必要です。
+Extract PDFmark の configure スクリプトは、
+pkg-config が poppler-cpp >= 0.74.0 を見つけたら
+poppler-cpp I/F を選択します。
+
+パッケージを使って準備したい場合には、以下が便利でしょう。
+
+* Debian / Ubuntu
+    + libpoppler-cpp-dev
+* Fedora
+    + poppler-cpp-devel
+* Cygwin
+    + libpoppler-cpp-devel
+
+#### poppler-core I/F
+
 [poppler](https://poppler.freedesktop.org/) 0.13.3 以降
-に以下のオプションをつけてビルドしたもの。
-（推奨 poppler 0.48.0 以降）
+に以下のオプションをつけてビルドしたものが必要です
+（推奨 poppler 0.48.0 以降）。
+poppler 0.74.0 以降の場合は poppler-cpp I/F の方を推奨します。
+Extract PDFmark の configure スクリプトは、
+pkg-config が poppler-cpp >= 0.74.0 を見つけられず、
+かつ poppler >= 0.13.3 を見つけたら
+poppler-core I/F を選択します。
 
 * --enable-xpdf-headers (poppler 0.59.0 まで)
 * -DENABLE_XPDF_HEADERS=ON （poppler 0.60.0 から 0.72.0）
@@ -101,12 +128,12 @@ https://bugs.ghostscript.com/show_bug.cgi?id=699830
 パッケージを使って準備したい場合には、以下が便利でしょう。
 
 * Debian / Ubuntu
-  + libpoppler-private-dev
-  + libpoppler-dev
+    + libpoppler-private-dev
+    + libpoppler-dev
 * Fedora
-  + poppler-devel
+    + poppler-devel
 * Cygwin
-  + libpoppler-devel
+    + libpoppler-devel
 
 ### ビルド・インストール方法
 
