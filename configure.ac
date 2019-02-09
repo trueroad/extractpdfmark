@@ -105,8 +105,8 @@ AS_CASE(["$with_poppler"],
                       [POPPLER], [poppler >= 0.48.0],
                       [with_poppler="core"],
                       [AC_MSG_NOTICE(
-                           [ trying for core-private (poppler >= 0.13.3)])
-                       PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3],
+                           [ trying for core-private (poppler >= 0.24.4)])
+                       PKG_CHECK_MODULES([POPPLER], [poppler >= 0.24.4],
                            [with_poppler="core-private"])])])]
              AC_MSG_NOTICE([use --with-poppler=$with_poppler]),
         [AC_MSG_ERROR([unrecognized --with-poppler argument: $with_poppler])])
