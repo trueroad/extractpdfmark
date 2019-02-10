@@ -1,6 +1,6 @@
 // This file is part of Extract PDFmark.
 //
-// Copyright (C) 2016 Masamichi Hosoda
+// Copyright (C) 2016, 2019 Masamichi Hosoda
 //
 // Extract PDFmark is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -49,4 +49,17 @@ bool poppler_core::open (const std::string &pdf_filename)
     }
 
   return true;
+}
+
+std::string poppler_core::version (void)
+{
+  std::string retval;
+
+  retval = "Compiled with poppler-core";
+#ifndef HAVE_POPPLER_CORE_IF
+  retval += " private";
+#endif
+  retval += ".\n";
+
+  return retval;
 }

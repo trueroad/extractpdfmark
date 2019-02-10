@@ -1,6 +1,6 @@
 // This file is part of Extract PDFmark.
 //
-// Copyright (C) 2016 Masamichi Hosoda
+// Copyright (C) 2016, 2019 Masamichi Hosoda
 //
 // Extract PDFmark is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <poppler.h>
 
@@ -87,4 +88,19 @@ bool poppler_glib::open (const std::string &pdf_filename)
       return false;
     }
   return true;
+}
+
+std::string poppler_glib::version (void)
+{
+  std::stringstream ss;
+
+  ss << "Compiled with poppler-glib "
+     << POPPLER_MAJOR_VERSION << "."
+     << POPPLER_MINOR_VERSION << "."
+     << POPPLER_MICRO_VERSION
+     << ".\nRunning with poppler-glib "
+     << poppler_get_version ()
+     << ".\n";
+
+  return ss.str ();
 }

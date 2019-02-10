@@ -22,6 +22,7 @@
 #include <iostream>
 #include <string>
 #include <poppler-document.h>
+#include <poppler-version.h>
 
 std::unique_ptr<output_pdfmark> create_output_pdfmark (void)
 {
@@ -39,4 +40,17 @@ bool poppler_cpp::open (const std::string &pdf_filename)
       return false;
     }
   return true;
+}
+
+std::string poppler_cpp::version (void)
+{
+  std::string retval;
+
+  retval = "Compiled with poppler-cpp ";
+  retval += POPPLER_VERSION;
+  retval += ".\nRunning with poppler-cpp ";
+  retval += poppler::version_string ();
+  retval += ".\n";
+
+  return retval;
 }

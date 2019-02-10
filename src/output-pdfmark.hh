@@ -1,6 +1,6 @@
 // This file is part of Extract PDFmark.
 //
-// Copyright (C) 2016 Masamichi Hosoda
+// Copyright (C) 2016, 2019 Masamichi Hosoda
 //
 // Extract PDFmark is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ public:
   virtual bool open (const std::string &pdf_filename) = 0;
   virtual std::string pagemode (void) = 0;
   virtual std::string destname (void) = 0;
+  virtual std::string version (void) = 0;
 
   void add_options (cmdlineparse::parser *cmd);
   void parse_options (void);

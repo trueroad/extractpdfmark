@@ -30,6 +30,7 @@ public:
   bool open (const std::string &pdf_filename);
   std::string pagemode (void);
   std::string destname (void);
+  std::string version (void);
 
 private:
   std::string walk (const std::string &name,

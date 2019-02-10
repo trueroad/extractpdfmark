@@ -1,6 +1,6 @@
 // This file is part of Extract PDFmark.
 //
-// Copyright (C) 2016 Masamichi Hosoda
+// Copyright (C) 2016, 2019 Masamichi Hosoda
 //
 // Extract PDFmark is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,7 +31,17 @@ int main (int argc, char *argv[])
   std::unique_ptr<output_pdfmark> opdfmark {create_output_pdfmark ()};
   std::string output_filename;
 
-  cmd.add_default ();
+  cmd.add_default_help ();
+  cmd.add_handler ('V', "version",
+                   cmdlineparse::arg_mode::no_argument,
+                   [&cmd, &opdfmark](const std::string &)->bool
+                   {
+                     std::cout << cmd.get_version_string ()
+                               << std::endl
+                               << opdfmark->version ();
+                     return false;
+                   },
+                   "    Print version and exit");
   cmd.add_string ('o', "output", &output_filename, "",
                   "    Output filename\n"
                   "    (Default: standard output)",
