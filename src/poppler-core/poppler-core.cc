@@ -59,6 +59,15 @@ std::string poppler_core::version (void)
 #ifndef HAVE_POPPLER_CORE_IF
   retval += " private";
 #endif
+#ifdef POPPLER_CORE_IF_VERSION
+  retval += " ";
+  retval += POPPLER_CORE_IF_VERSION;
+#else
+#ifdef POPPLER_VERSION
+  retval += " ";
+  retval += POPPLER_VERSION;
+#endif
+#endif
   retval += ".\n";
 
   return retval;
