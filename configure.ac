@@ -93,7 +93,11 @@ AS_CASE(["$with_poppler"],
         ["core-private"],
             [AC_MSG_NOTICE(
                  [--with-poppler=core-private requires poppler >= 0.13.3])
-             PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])],
+             PKG_CHECK_MODULES([POPPLER], [poppler >= 0.19.2],,
+                 [PKG_CHECK_MODULES([POPPLER], [poppler >= 0.13.3])
+                  AC_DEFINE_UNQUOTED([POPPLER_CORE_IF_VERSION],
+                       ["`$PKG_CONFIG --modversion poppler`"],
+                       [Define poppler version if POPPLER_VERSION cannot be used.])])],
         ["auto"],
             [AC_MSG_NOTICE([selecting for --with-poppler=auto])
              AC_MSG_NOTICE([ trying for cpp (poppler-cpp >= 0.74.0)])
