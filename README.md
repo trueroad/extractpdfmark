@@ -82,7 +82,7 @@ Some distributions have `extractpdfmark` package.
 * Cygwin:
 [2017-05](https://sourceware.org/ml/cygwin-announce/2017-05/msg00030.html).
 
-## Install from [source tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.0.3/extractpdfmark-1.0.3.tar.gz)
+## Install from [source tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.1.0/extractpdfmark-1.1.0.tar.gz)
 
 ### Required
 
