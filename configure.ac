@@ -98,7 +98,7 @@ AS_CASE(["$with_poppler"],
             [AC_MSG_NOTICE([selecting for --with-poppler=auto])
              AC_MSG_NOTICE([ trying for cpp (poppler-cpp >= 0.74.0)])
              PKG_CHECK_MODULES(
-                 [POPPLER_CPP], [poppler-cpp >= 0.74.00],
+                 [POPPLER_CPP], [poppler-cpp >= 0.74.0],
                  [with_poppler="cpp"],
                  [AC_MSG_NOTICE([ trying for core (poppler >= 0.48.0)])
                   PKG_CHECK_MODULES(
