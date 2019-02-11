@@ -98,8 +98,16 @@ std::string poppler_glib::version (void)
      << POPPLER_MAJOR_VERSION << "."
      << POPPLER_MINOR_VERSION << "."
      << POPPLER_MICRO_VERSION
+     << ", glib "
+     << GLIB_MAJOR_VERSION << "."
+     << GLIB_MINOR_VERSION << "."
+     << GLIB_MICRO_VERSION
      << ".\nRunning with poppler-glib "
      << poppler_get_version ()
+     << ", glib "
+     << glib_major_version << "."
+     << glib_minor_version << "."
+     << glib_micro_version
      << ".\n";
 
   return ss.str ();
