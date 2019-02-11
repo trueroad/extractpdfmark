@@ -100,6 +100,7 @@ Extract PDFmark をビルドする際に、どちらを使用するか選択し�
 Extract PDFmark の configure スクリプトは、
 pkg-config が poppler-cpp >= 0.74.0 を見つけたら
 poppler-cpp I/F を選択します。
+
 configure スクリプトのオプション `--with-poppler=cpp` によって、
 本 I/F の使用を明示的に指定できます。
 
@@ -127,15 +128,19 @@ Extract PDFmark の configure スクリプトは、
 pkg-config が poppler-cpp >= 0.74.0 を見つけられず、
 かつ poppler >= 0.24.4 を見つけたら
 poppler-core I/F を選択します。
+本 I/F には private 版と通常版の 2 種類があります。
+poppler 0.24.4 から 0.47.0 の場合は private 版が選択されます。
+poppler 0.48.0 以降の場合は通常版が選択されます。
+
 configure スクリプトのオプション `--with-poppler=core-private` によって、
-本 I/F private 版の使用を明示的に指定できます（poppler 0.13.3 以降用）。
+private 版の使用を明示的に指定できます（poppler 0.13.3 以降用）。
+configure スクリプトのオプション `--with-poppler=core` によって、
+通常版の使用を明示的に指定できます（poppler 0.48.0 以降用）。
 poppler 0.13.3 から 0.24.3 を使うには、
 configure スクリプトのオプション `--with-poppler=core-private` を
 明示的に指定する必要があります。
 しかし、これらのバージョンでは Extract PDFmark の `make check`
 で一部のテストに失敗します。
-configure スクリプトのオプション `--with-poppler=core` によって、
-本 I/F 通常版の使用を明示的に指定できます（poppler 0.48.0 以降用）。
 
 パッケージを使って準備したい場合には、以下が便利でしょう。
 

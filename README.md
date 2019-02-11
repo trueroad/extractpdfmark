@@ -94,6 +94,7 @@ Please choose which to use when building Extrat PDFmark.
 [poppler](https://poppler.freedesktop.org/) 0.74.0+ is required.
 Extract PDFmark's configure script selects poppler-cpp I/F
 if pkg-config finds poppler-cpp >= 0.74.0.
+
 The configure script's option `--with-poppler=cpp` specifies
 explicitly using this interface.
 
@@ -121,15 +122,19 @@ If you have poppler 0.74.0+, poppler-cpp I/F is recommended.
 Extract PDFmark's configure script selects poppler-core I/F
 if pkg-config does not find poppler-cpp >= 0.74.0
 and finds poppler >= 0.24.4.
+There are two versions of this interface, private and normal.
+For popler 0.24.4 - 0.47.0, private version is selected.
+For popler 0.48.0+, normal version is selected.
+
 The configure script's option `--with-poppler=core-private` specifies
-explicitly using this interface's private version (for poppler 0.13.3+).
+explicitly using private version (for poppler 0.13.3+).
+The configure script's option `--with-poppler=core` specifies
+explicitly using normal version (for poppler 0.48.0+).
 If you would like to use poppler 0.13.3 - 0.24.3,
 it is necessary to specify explicitly configure script's option
 `--with-poppler=core-private`.
 However, Extract PDFmark with these versions of popler fails
 some tests in `make check`.
-The configure script's option `--with-poppler=core` specifies
-explicitly using this interface's normal version (for poppler 0.48.0+).
 
 When you would like to use packages for preparing the required library,
 the following might be convenient.
