@@ -20,6 +20,7 @@
 #include "poppler-cpp.hh"
 
 #include <iostream>
+#include <memory>
 #include <string>
 #include <poppler-document.h>
 #include <poppler-version.h>
@@ -31,7 +32,8 @@ std::unique_ptr<output_pdfmark> create_output_pdfmark (void)
 
 bool poppler_cpp::open (const std::string &pdf_filename)
 {
-  doc = poppler::document::load_from_file (pdf_filename);
+  doc = std::unique_ptr<poppler::document>
+    {poppler::document::load_from_file (pdf_filename)};
 
   if (!doc)
     {

@@ -18,6 +18,7 @@
 #ifndef INCLUDE_GUARD_POPPLER_CPP_HH
 #define INCLUDE_GUARD_POPPLER_CPP_HH
 
+#include <memory>
 #include <string>
 #include <poppler-destination.h>
 #include <poppler-document.h>
@@ -36,7 +37,7 @@ private:
   std::string walk (const std::string &name,
                     const poppler::destination &dest);
 
-  poppler::document *doc = nullptr;
+  std::unique_ptr<poppler::document> doc;
 };
 
 #endif // INCLUDE_GUARD_POPPLER_CPP_HH
