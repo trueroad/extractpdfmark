@@ -3,13 +3,11 @@
 EXPECTEDPDFMARK=$1
 BASENAME=`basename ${EXPECTEDPDFMARK} | sed -e "s/-expected\(-.\+\)\?\.pdfmark$//"`
 OPTSUFFIX=`echo ${EXPECTEDPDFMARK} | sed -e "s/^\(.*-expected\)\(-.\+\)\?\.pdfmark$/\2/"`
+DIRNAME=`dirname ${EXPECTEDPDFMARK}`
 
-PDF="${BASENAME}.pdf"
+PDF="${DIRNAME}/${BASENAME}.pdf"
 EXTRACTEDPDFMARK="${BASENAME}-expected${OPTSUFFIX}-test.pdfmark"
 
-if [ ! -e ${PDF} ]; then
-    PDF="${srcdir}/${BASENAME}.pdf"
-fi
 if [ ! -s ${PDF} ]; then
     # skip
     exit 77
