@@ -8,7 +8,7 @@ PDF="${BASENAME}.pdf"
 EXTRACTEDPDFMARK="${BASENAME}-expected${OPTSUFFIX}-test.pdfmark"
 
 if [ ! -e ${EXPECTEDPDFMARK} ]; then
-    EXPEXTEDPDFMARK="${srcdir}/${BASENAME}-expected${OPTSUFFIX}.pdfmark"
+    EXPECTEDPDFMARK="${srcdir}/${BASENAME}-expected${OPTSUFFIX}.pdfmark"
 fi
 if [ ! -e ${PDF} ]; then
     PDF="${srcdir}/${BASENAME}.pdf"
