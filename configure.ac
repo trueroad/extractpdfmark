@@ -85,8 +85,8 @@ AS_CASE(["$with_poppler"],
             [AC_MSG_NOTICE([--with-poppler=cpp requires poppler >= 0.74.0])
              PKG_CHECK_MODULES([POPPLER_CPP], [poppler-cpp >= 0.74.0])],
         ["glib"],
-            [AC_MSG_NOTICE([--with-poppler=glib requires poppler >= 0.74.0])
-             PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.74.0])],
+            [AC_MSG_NOTICE([--with-poppler=glib requires poppler >= 0.78.0])
+             PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.78.0])],
         ["core"],
             [AC_MSG_NOTICE([--with-poppler=core requires poppler >= 0.48.0])
              PKG_CHECK_MODULES([POPPLER], [poppler >= 0.48.0])],
@@ -104,15 +104,19 @@ AS_CASE(["$with_poppler"],
              PKG_CHECK_MODULES(
                  [POPPLER_CPP], [poppler-cpp >= 0.74.0],
                  [with_poppler="cpp"],
-                 [AC_MSG_NOTICE([ trying for core (poppler >= 0.48.0)])
+                 [AC_MSG_NOTICE([ trying for glib (poppler-glib >= 0.78.0)])
                   PKG_CHECK_MODULES(
-                      [POPPLER], [poppler >= 0.48.0],
-                      [with_poppler="core"],
-                      [AC_MSG_NOTICE(
-                           [ trying for core-private (poppler >= 0.24.4)])
-                       PKG_CHECK_MODULES([POPPLER], [poppler >= 0.24.4],
-                           [with_poppler="core-private"])])])]
-             AC_MSG_NOTICE([use --with-poppler=$with_poppler]),
+                      [POPPLER_GLIB], [poppler-glib >= 0.78.0],
+                      [with_poppler="glib"],
+                      [AC_MSG_NOTICE([ trying for core (poppler >= 0.48.0)])
+                       PKG_CHECK_MODULES(
+                           [POPPLER], [poppler >= 0.48.0],
+                           [with_poppler="core"],
+                           [AC_MSG_NOTICE(
+                                [ trying for core-private (poppler >= 0.24.4)])
+                            PKG_CHECK_MODULES([POPPLER], [poppler >= 0.24.4],
+                                [with_poppler="core-private"])])])])
+             AC_MSG_NOTICE([use --with-poppler=$with_poppler])],
         [AC_MSG_ERROR([unrecognized --with-poppler argument: $with_poppler])])
 AS_CASE(["$with_poppler"],
         ["cpp"],
