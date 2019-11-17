@@ -1,4 +1,7 @@
+<!-- -*- coding: utf-8 -*- -->
 # Extract PDFmark
+
+[ [Japanese (日本語)](./README.ja.md) / English ]
 
 Extract page mode and named destinations as PDFmark from PDF
 
@@ -86,8 +89,8 @@ Some distributions have `extractpdfmark` package.
 
 ### Required
 
-Extract PDFmark requires one of the two interfaces of poppler.
-Please choose which to use when building Extrat PDFmark.
+Extract PDFmark requires one of the three interfaces of poppler.
+Please choose which to use when building Extrcat PDFmark.
 
 #### poppler-cpp I/F (recommended)
 
@@ -108,28 +111,43 @@ the following might be convenient.
 * Cygwin
     + libpoppler-cpp-devel
 
-#### poppler-core I/F
+#### poppler-glib I/F
 
-[poppler](https://poppler.freedesktop.org/) 0.13.3+
+[poppler](https://poppler.freedesktop.org/) 0.78.0+ is required.
+Extract PDFmark's configure script selects poppler-glib I/F
+if pkg-config does not find poppler-cpp >= 0.74.0,
+and finds poppler-glib 0.78.0+.
+
+The configure script's option `--with-poppler=glib` specifies
+explicitly using this interface.
+
+#### poppler-core I/F (deprecated)
+
+[poppler](https://poppler.freedesktop.org/) 0.13.3 - 0.75.0
 built with the following option is required
-(recommended poppler 0.48.0+).
-If you have poppler 0.74.0+, poppler-cpp I/F is recommended.
+(recommended poppler 0.48.0 - 0.73.0).
 
 * --enable-xpdf-headers (poppler 0.59.0 and before)
 * -DENABLE_XPDF_HEADERS=ON (poppler 0.60.0 - 0.72.0)
-* -DENABLE_UNSTABLE_API_ABI_HEADERS=ON (poppler 0.73.0 and after)
+* -DENABLE_UNSTABLE_API_ABI_HEADERS=ON (poppler 0.73.0 - 0.75.0)
+
+If you have poppler 0.74.0+, poppler-cpp I/F
+instead of this I/F is recommended.
+Extract PDFmark build with this I/F on poppler-0.76.0+ fails
+since poppler-0.76.0 has a disruptive change to the I/F.
 
 Extract PDFmark's configure script selects poppler-core I/F
-if pkg-config does not find poppler-cpp >= 0.74.0
-and finds poppler >= 0.24.4.
+if pkg-config does not find poppler-cpp >= 0.74.0,
+does not find poppler-glib >= 0.78.0,
+and finds poppler 0.24.4 - 0.75.0.
 There are two versions of this interface, private and normal.
 For popler 0.24.4 - 0.47.0, private version is selected.
-For popler 0.48.0+, normal version is selected.
+For popler 0.48.0 - 0.75.0, normal version is selected.
 
 The configure script's option `--with-poppler=core-private` specifies
-explicitly using private version (for poppler 0.13.3+).
+explicitly using private version (for poppler 0.13.3 - 0.75.0).
 The configure script's option `--with-poppler=core` specifies
-explicitly using normal version (for poppler 0.48.0+).
+explicitly using normal version (for poppler 0.48.0 - 0.75.0).
 If you would like to use poppler 0.13.3 - 0.24.3,
 it is necessary to specify explicitly configure script's option
 `--with-poppler=core-private`.

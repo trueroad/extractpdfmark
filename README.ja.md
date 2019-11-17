@@ -1,6 +1,8 @@
 <!-- -*- coding: utf-8 -*- -->
 # Extract PDFmark
 
+[ Japanese (日本語) / [English](./README.md) ]
+
 PDF からページモードやリンクの宛先名を抽出し PDFmark として保存します
 
 https://github.com/trueroad/extractpdfmark  
@@ -90,9 +92,9 @@ https://bugs.ghostscript.com/show_bug.cgi?id=699830
 
 ### 必要なもの
 
-Extract PDFmark は poppler にある 2 種類のインタフェースのうち、
-どちらかを必要とします。
-Extract PDFmark をビルドする際に、どちらを使用するか選択してください。
+Extract PDFmark は poppler にある 3 種類のインタフェースのうち、
+どれかを必要とします。
+Extract PDFmark をビルドする際に、どれを使用するか選択してください。
 
 #### poppler-cpp I/F （推奨）
 
@@ -113,29 +115,44 @@ configure スクリプトのオプション `--with-poppler=cpp` によって、
 * Cygwin
     + libpoppler-cpp-devel
 
-#### poppler-core I/F
+#### poppler-glib I/F
 
-[poppler](https://poppler.freedesktop.org/) 0.13.3 以降
+[poppler](https://poppler.freedesktop.org/) 0.78.0 以降が必要です。
+Extract PDFmark の configure スクリプトは、
+pkg-config が poppler-cpp >= 0.74.0 を見つけられず、
+かつ poppler-glib >= 0.78.0 を見つけたら
+poppler-glib I/F を選択します。
+
+configure スクリプトのオプション `--with-poppler=glib` によって、
+本 I/F の使用を明示的に指定できます。
+
+#### poppler-core I/F （非推奨）
+
+[poppler](https://poppler.freedesktop.org/) 0.13.3 から 0.75.0
 に以下のオプションをつけてビルドしたものが必要です
-（推奨 poppler 0.48.0 以降）。
-poppler 0.74.0 以降の場合は poppler-cpp I/F の方を推奨します。
+（推奨 poppler 0.48.0 から 0.73.0）。
 
 * --enable-xpdf-headers (poppler 0.59.0 まで)
 * -DENABLE_XPDF_HEADERS=ON （poppler 0.60.0 から 0.72.0）
-* -DENABLE_UNSTABLE_API_ABI_HEADERS=ON (poppler 0.73.0 以降)
+* -DENABLE_UNSTABLE_API_ABI_HEADERS=ON (poppler 0.73.0 から 0.75.0)
+
+poppler 0.74.0 以降の場合は、この I/F より poppler-cpp I/F の方を推奨します。
+poppler 0.76.0 でこの I/F に破壊的変更が入ったため、
+poppler 0.76.0 以降ではこの I/F を使ったExtract PDFmarkのビルドが失敗します。
 
 Extract PDFmark の configure スクリプトは、
 pkg-config が poppler-cpp >= 0.74.0 を見つけられず、
-かつ poppler >= 0.24.4 を見つけたら
+poppler-glib >= 0.78.0 を見つけられず、
+かつ poppler 0.24.4 - 0.75.0 を見つけたら
 poppler-core I/F を選択します。
 本 I/F には private 版と通常版の 2 種類があります。
 poppler 0.24.4 から 0.47.0 の場合は private 版が選択されます。
-poppler 0.48.0 以降の場合は通常版が選択されます。
+poppler 0.48.0 から 0.75.0 の場合は通常版が選択されます。
 
 configure スクリプトのオプション `--with-poppler=core-private` によって、
-private 版の使用を明示的に指定できます（poppler 0.13.3 以降用）。
+private 版の使用を明示的に指定できます（poppler 0.13.3 から 0.75.0 用）。
 configure スクリプトのオプション `--with-poppler=core` によって、
-通常版の使用を明示的に指定できます（poppler 0.48.0 以降用）。
+通常版の使用を明示的に指定できます（poppler 0.48.0 から 0.75.0 用）。
 poppler 0.13.3 から 0.24.3 を使うには、
 configure スクリプトのオプション `--with-poppler=core-private` を
 明示的に指定する必要があります。
