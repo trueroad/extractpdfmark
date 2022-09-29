@@ -1,8 +1,8 @@
 //
-// One header file iconv wrapper for C++11 2016-10-19.22 GPL
-// https://github.com/trueroad/iconv_wrapper/
+// One header file iconv wrapper for C++11 2022-09-29.12 GPL
+// https://github.com/trueroad/iconv_wrapper
 //
-// Copyright (C) 2016 Masamichi Hosoda. All rights reserved.
+// Copyright (C) 2016, 2019, 2022 Masamichi Hosoda. All rights reserved.
 //
 // One header file iconv wrapper for C++11 is free software:
 // you can redistribute it and/or modify
@@ -152,7 +152,10 @@ namespace iconv_wrapper
                                       std::string *pout)
   {
     size_t inleft {in.size ()};
-    do_iconv (pout, &in.at (0), &inleft, pinpos);
+    if (inleft)
+      do_iconv (pout, &in.at (0), &inleft, pinpos);
+    else
+      pout->clear();
     return *pout;
   }
 
