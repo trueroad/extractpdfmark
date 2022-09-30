@@ -73,19 +73,13 @@ See https://bugs.ghostscript.com/show_bug.cgi?id=699830 .)
 
 Some distributions have `extractpdfmark` package.
 
-* Debian:
-[9 stretch](https://packages.debian.org/stretch/extractpdfmark).
-* Ubuntu:
-17.04 Zesty Zapus,
-17.10 Artful Aardvark,
-[18.04 LTS Bionic Beaver](https://packages.ubuntu.com/bionic/extractpdfmark),
-[18.10 Cosmic Cuttlefish](https://packages.ubuntu.com/cosmic/extractpdfmark).
-* Fedora:
-[29](https://apps.fedoraproject.org/packages/extractpdfmark).
-* Cygwin:
-[2017-05](https://sourceware.org/ml/cygwin-announce/2017-05/msg00030.html).
+* Debian
+* Ubuntu
+* Fedora
+* Cygwin
+* etc.
 
-## Install from [source tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.1.0/extractpdfmark-1.1.0.tar.gz)
+## Install from [source tarball](https://github.com/trueroad/extractpdfmark/releases/download/v1.1.1/extractpdfmark-1.1.1.tar.gz)
 
 ### Required
 
@@ -212,7 +206,7 @@ Ghostscript 9.14+ (for `make check`)
 
 ## Licence
 
-Copyright (C) 2016-2019 Masamichi Hosoda
+Copyright (C) 2016-2022 Masamichi Hosoda
 
 Extract PDFmark is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
