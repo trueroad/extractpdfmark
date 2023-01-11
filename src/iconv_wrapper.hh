@@ -1,8 +1,8 @@
 //
-// One header file iconv wrapper for C++11 2022-09-29.12 GPL
+// One header file iconv wrapper for C++11 2022-01-11.12 GPL
 // https://github.com/trueroad/iconv_wrapper
 //
-// Copyright (C) 2016, 2019, 2022 Masamichi Hosoda. All rights reserved.
+// Copyright (C) 2016, 2019, 2022, 2023 Masamichi Hosoda. All rights reserved.
 //
 // One header file iconv wrapper for C++11 is free software:
 // you can redistribute it and/or modify
@@ -120,7 +120,7 @@ namespace iconv_wrapper
   inline void iconv::open (const std::string &fromcode,
                            const std::string &tocode)
   {
-    if (convdesc == invalid_cd)
+    if (convdesc != invalid_cd)
       {
         close ();
       }
